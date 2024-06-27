@@ -1,11 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Tower</title>
     </head>
     <body>
-        <main>Index</main>
+        <main>
+            <div>
+                <span> Drücke den Start-Knopf (ENTER), um zu starten.</span>
+                <a style="display: none" href="/game/hate_speech.html">x</a>
+            </div>
+        </main>
+
+        <script type="module">
+            import { inputGeneric, inputHateSpeech } from "./src/lib/control/control.js";
+            import { spoofGenericInput } from "./src/lib/control/controlSpoof.js";
+            import { initAfterLoad } from "./src/lib/init.js";
+            import { infoButton } from "./src/lib/meta/infoButton.js";
+            import { showModal } from "./src/lib/meta/modal.js";
+
+            function onInput(keyName) {
+                console.log(keyName);
+
+                if (keyName === inputGeneric.BUTTON_START) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const gameId = urlParams.get("game");
+                    if (gameId) {
+                        document.querySelector("a").href = `/game/${gameId}.html`;
+                    }
+
+                    document.querySelector("a").click();
+                }
+            }
+
+            initAfterLoad(() => {
+                spoofGenericInput(onInput);
+            });
+        </script>
     </body>
 </html>

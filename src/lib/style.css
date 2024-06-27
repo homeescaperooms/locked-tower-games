@@ -7,7 +7,7 @@
     --color-bg: #131415;
     --color-fg: #daeeff;
 
-    --color-text: #242629;
+    --color-text: #ffffff;
     --color-text-lighter: #656f79;
 }
 
@@ -44,7 +44,48 @@ body {
 main {
     position: relative;
     width: 100%;
-    max-width: 1000px;
-    height: 95vh;
-    margin: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+main article {
+    flex: 1;
+}
+
+main img {
+    width: 100%;
+}
+
+main h1 {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+main .progress {
+    padding: 1rem;
+    justify-content: center;
+    color: black;
+    display: flex;
+    gap: 1rem;
+}
+
+main .progress .indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* hate speech */
+
+main.hate_speech .progress .indicator {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 100%;
+}
+
+main.hate_speech .progress .indicator.filled {
+    background: rgb(148, 67, 58);
 }

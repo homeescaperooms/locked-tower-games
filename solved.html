@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tower</title>
+    </head>
+    <body>
+        <main>[lösungsvideo]</main>
+
+        <script type="module">
+            import { initAfterLoad } from "./src/lib/init.js";
+
+            initAfterLoad(() => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const gameId = urlParams.get("game");
+                if (gameId) {
+                    document.querySelector("main").innerHTML = `[lösungsvideo für ${gameId}]`;
+                }
+            });
+        </script>
+    </body>
+</html>
