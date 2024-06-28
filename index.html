@@ -9,7 +9,7 @@
         <main>
             <div>
                 <span> Drücke den Start-Knopf (ENTER), um zu starten.</span>
-                <a style="display: none" href="/game/hate_speech.html">x</a>
+                <a style="display: none" href="/tower/game/hate_speech.html">x</a>
             </div>
         </main>
 
@@ -27,7 +27,7 @@
                     const urlParams = new URLSearchParams(window.location.search);
                     const gameId = urlParams.get("game");
                     if (gameId) {
-                        document.querySelector("a").href = `/game/${gameId}.html`;
+                        document.querySelector("a").href = `/tower/game/${gameId}.html`;
                     }
 
                     document.querySelector("a").click();
