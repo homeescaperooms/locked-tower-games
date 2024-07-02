@@ -1,4 +1,4 @@
-import { inputGeneric, inputHateSpeech, onInputGeneric, onInputHateSpeech } from "./control.js";
+import { inputGeneric, inputHateSpeech, inputUnknownLanguage, onInputGeneric, onInputHateSpeech, onInputUnknownLanguage } from "./control.js";
 
 export function spoofGenericInput(cb) {
     document.addEventListener("keydown", (event) => {
@@ -24,6 +24,19 @@ export function spoofHateSpeechInput(cb) {
             const keyNum = parseInt(event.key, 10);
             if (keyNum >= 1 && keyNum < 9) {
                 onInputHateSpeech(inputHateSpeech[`BUTTON_${keyNum}`], cb);
+            }
+        }
+    });
+}
+
+export function spoofUnknownLanguageInput(cb) {
+    // event listener for pressing 1-8 key on keyboard
+    document.addEventListener("keydown", (event) => {
+        if (event.key) {
+            // unknown language
+            const keyNum = parseInt(event.key, 10);
+            if (keyNum >= 1 && keyNum < 9) {
+                onInputUnknownLanguage(inputUnknownLanguage[`BUTTON_${keyNum}`], cb);
             }
         }
     });

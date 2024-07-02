@@ -5,3 +5,7 @@ export function appendChildren(newParent, oldParent) {
         newParent.appendChild(oldParent.firstChild);
     }
 }
+
+export async function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}

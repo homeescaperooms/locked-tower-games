@@ -4,12 +4,14 @@ export class Timer {
         this.time = time;
         this.cbOnFinished = cbOnFinished;
         this.interval = null;
+        this.cbEachSecond = null;
     }
 
     start() {
         console.log(`Timer started with ${this.time} seconds.`);
         this.interval = setInterval(() => {
             this.time--;
+            if (this.cbEachSecond) this.cbEachSecond(this.time);
             if (this.time <= 0) {
                 this.stop();
                 this.cbOnFinished();
@@ -27,5 +29,9 @@ export class Timer {
 
     getTime() {
         return this.time;
+    }
+
+    setCallbackEachSecond(cb) {
+        this.cbEachSecond = cb;
     }
 }

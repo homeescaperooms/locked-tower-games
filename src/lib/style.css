@@ -89,3 +89,14 @@ main.hate_speech .progress .indicator {
 main.hate_speech .progress .indicator.filled {
     background: rgb(148, 67, 58);
 }
+
+/* unknown language */
+
+main.unknown_language article {
+    position: relative;
+}
+
+main.unknown_language article img.symbol {
+    position: absolute;
+    width: auto;
+}
