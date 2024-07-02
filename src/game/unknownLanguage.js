@@ -9,7 +9,7 @@ import { hideModal, showModal } from "../lib/meta/modal.js";
 import { Timer } from "../lib/timer/timer.js";
 
 /* config */
-const DIFFICULTY = "easy"; // "easy" or "hard"
+const DIFFICULTY = "hard"; // "easy" or "hard"
 const HELP_TEXT = "hilfe für unknown language";
 const RESET_TIMER_SECONDS = 120;
 const COUNTDOWN_TIMER_SECONDS = 5;
@@ -38,6 +38,18 @@ const SYMBOL_MAP = {
     E: {
         src: "/content/unknown_language/symbol_5.png",
         button: inputUnknownLanguage.BUTTON_5,
+    },
+    F: {
+        src: "/content/unknown_language/symbol_6.png",
+        button: inputUnknownLanguage.BUTTON_6,
+    },
+    G: {
+        src: "/content/unknown_language/symbol_7.png",
+        button: inputUnknownLanguage.BUTTON_7,
+    },
+    H: {
+        src: "/content/unknown_language/symbol_8.png",
+        button: inputUnknownLanguage.BUTTON_8,
     },
 };
 
@@ -94,6 +106,15 @@ const SOLUTIONS = {
             symbol: "E",
             x: 87, // %
             y: 35, // %
+        },
+        {
+            symbol: "F",
+        },
+        {
+            symbol: "G",
+        },
+        {
+            symbol: "H",
         },
     ],
 };
@@ -167,7 +188,14 @@ function solveGame() {
 }
 
 function updateProgress(currentSolution, correctSolution) {
-    let innerString = "";
+    let innerString = "<span>Eingabe: </span>";
+
+    if (!canInput) {
+        innerString = "<span>Eingabe:</span>(Warte...)</div>";
+        document.querySelector(".progress").innerHTML = innerString;
+        return;
+    }
+
     for (let i = 0; i < correctSolution.length; i++) {
         const isFilledOut = i < currentSolution.length;
         let content = "_";
@@ -182,7 +210,7 @@ function compareSolution(currentSolution, correctSolution) {
     if (currentSolution.length !== correctSolution.length) return false;
 
     for (let i = 0; i < currentSolution.length; i++) {
-        if (currentSolution[i] !== correctSolution[i]) return false;
+        if (currentSolution[i] !== correctSolution[i].symbol) return false;
     }
 
     return true;
@@ -206,8 +234,9 @@ initAfterLoad(() => {
     });
 
     countdownTimer.setCallbackEachSecond((time) => {
-        document.querySelector("article").innerHTML = `<span>${time}</span>`;
+        document.querySelector("article").innerHTML = `<div class="countdown">Start in: ${time} Sekunden...</div>`;
     });
+    document.querySelector("article").innerHTML = `<div class="countdown">Start in: ${COUNTDOWN_TIMER_SECONDS} Sekunden...</div>`;
 
     countdownTimer.start();
 });
@@ -251,7 +280,7 @@ async function showSymbols() {
         const src = import.meta.env.BASE_URL + SYMBOL_MAP[phase.symbol].src;
         showSymbolAt(src, phase.x, phase.y);
         await sleep(TIME_EACH_SYMBOL_IS_SHOWN_MS);
-        //deleteSymbol();
+        deleteSymbol();
         await sleep(TIME_BETWEEN_SYMBOLS_MS);
     }
 
@@ -260,6 +289,7 @@ async function showSymbols() {
 
 function startInputPhase() {
     canInput = true;
+    updateProgress(currentTryInputs, SOLUTIONS[DIFFICULTY]);
     resetTimer = new Timer(RESET_TIMER_SECONDS, () => {
         // timeout is up, navigate back to start
         document.querySelector("a.reset").click();
