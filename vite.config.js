@@ -10,6 +10,7 @@ export default defineConfig({
                 solved: resolve(__dirname, "solved.html"),
                 gameHateSpeech: resolve(__dirname, "game/hate_speech.html"),
                 gameUnknownLanguage: resolve(__dirname, "game/unknown_language.html"),
+                gameEmotions: resolve(__dirname, "game/emotions.html"),
             },
         },
     },
