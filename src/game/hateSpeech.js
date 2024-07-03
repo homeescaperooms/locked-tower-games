@@ -1,7 +1,7 @@
 import "../fonts.css";
 import "../lib/style.css";
 
-import { inputGeneric, inputHateSpeech } from "../lib/control/control.js";
+import { inputGeneric, inputHateSpeech, onInputBackend } from "../lib/control/control.js";
 import { spoofGenericInput, spoofHateSpeechInput } from "../lib/control/controlSpoof.js";
 import { initAfterLoad } from "../lib/init.js";
 import { hideModal, showModal } from "../lib/meta/modal.js";
@@ -138,6 +138,10 @@ function isInputFinished(currentSolution, correctSolution) {
 }
 
 initAfterLoad(() => {
+    onInputBackend((topic, payload) => {
+        console.log("ui builder input from hate speech", topic, payload)
+    });
+
     spoofGenericInput(onInput);
     spoofHateSpeechInput(onInput);
     updateProgress(currentTryInputs, SOLUTIONS[DIFFICULTY]);

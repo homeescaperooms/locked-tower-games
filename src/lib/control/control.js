@@ -1,3 +1,12 @@
+import "../../lib/uibuilder/uibuilder.esm.min.js";
+
+export function onInputBackend(cb) {
+    uibuilder.onChange('msg', (msg) => {
+        cb(msg.topic, msg.payload)
+    });
+}
+
+
 export const inputGeneric = Object.freeze({
     BUTTON_START: "buttonStart",
     BUTTON_HELP: "buttonHelp",
@@ -42,5 +51,16 @@ export const inputEmotions = Object.freeze({
 });
 
 export function onInputEmotions(keyName, cb) {
+    cb(keyName);
+}
+
+export const inputQuizWG = Object.freeze({
+    BUTTON_A: "quizWG_buttonA",
+    BUTTON_B: "quizWG_buttonB",
+    BUTTON_C: "quizWG_buttonC",
+    BUTTON_D: "quizWG_buttonD",
+})
+
+export function onInputQuizWG(keyName, cb) {
     cb(keyName);
 }
