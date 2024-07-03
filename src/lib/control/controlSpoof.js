@@ -1,30 +1,34 @@
-import { inputGeneric, inputHateSpeech, inputUnknownLanguage, inputEmotions, onInputGeneric, onInputHateSpeech, onInputUnknownLanguage, onInputEmotions } from "./control.js";
-
-export function spoofGenericInput(cb) {
-    document.addEventListener("keydown", (event) => {
-        if (event.key) {
-            // escape --> buttonHelp
-            // enter --> buttonStart
-
-            if (event.key === "Escape") {
-                onInputGeneric(inputGeneric.BUTTON_HELP, cb);
-            }
-            if (event.key === "Enter") {
-                onInputGeneric(inputGeneric.BUTTON_START, cb);
-            }
-        }
-    });
-}
+import { inputEmotions, inputUnknownLanguage, onInputEmotions, onInputUnknownLanguage, spoofPayloadFromBackend } from "./control.js";
 
 export function spoofHateSpeechInput(cb) {
     // event listener for pressing 1-8 key on keyboard
     document.addEventListener("keydown", (event) => {
         if (event.key) {
             // hate speech
-            const keyNum = parseInt(event.key, 10);
-            if (keyNum >= 1 && keyNum < 9) {
-                onInputHateSpeech(inputHateSpeech[`BUTTON_${keyNum}`], cb);
+
+            let buttonName;
+            switch (event.key) {
+                case "Enter":
+                    buttonName = "buttonStart";
+                    break;
+                case "Escape":
+                    buttonName = "buttonHelp";
+                    break;
             }
+
+            if (event.key === "Enter") {
+                buttonName = "buttonStart";
+            } else if (event.key === "Escape") {
+                buttonName = "buttonHelp";
+            } else {
+                const keyNum = parseInt(event.key, 10);
+                if (keyNum >= 1 && keyNum < 8) {
+                    buttonName = "button" + keyNum.toString();
+                }
+            }
+
+            let payload = spoofPayloadFromBackend(1, buttonName);
+            cb();
         }
     });
 }

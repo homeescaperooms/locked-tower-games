@@ -1,66 +1,150 @@
 import "../../lib/uibuilder/uibuilder.esm.min.js";
 
-export function onInputBackend(cb) {
-    uibuilder.onChange('msg', (msg) => {
-        cb(msg.topic, msg.payload)
+const INPUTS = Object.freeze({
+    arduino_0: {
+        inputCodes: {
+            // game 1
+            0: {
+                game: 1,
+                button: "buttonStart",
+            },
+            1: {
+                game: 1,
+                button: "buttonHelp",
+            },
+            2: {
+                game: 1,
+                button: "button1",
+            },
+            3: {
+                game: 1,
+                button: "button2",
+            },
+            4: {
+                game: 1,
+                button: "button3",
+            },
+            5: {
+                game: 1,
+                button: "button4",
+            },
+            6: {
+                game: 1,
+                button: "button5",
+            },
+            7: {
+                game: 1,
+                button: "button6",
+            },
+            // game 4
+            8: {
+                game: 4,
+                button: "buttonStart",
+            },
+            9: {
+                game: 4,
+                button: "buttonHelp",
+            },
+            10: {
+                game: 4,
+                button: "buttonA",
+            },
+            11: {
+                game: 4,
+                button: "buttonB",
+            },
+            12: {
+                game: 4,
+                button: "buttonC",
+            },
+            13: {
+                game: 4,
+                button: "buttonD",
+            },
+        },
+    },
+    arduino_1: {
+        inputCodes: {
+            // game 2
+            0: {
+                game: 2,
+                button: "buttonStart",
+            },
+            1: {
+                game: 2,
+                button: "buttonHelp",
+            },
+            2: {
+                game: 2,
+                button: "button1",
+            },
+            3: {
+                game: 2,
+                button: "button2",
+            },
+            4: {
+                game: 2,
+                button: "button3",
+            },
+            5: {
+                game: 2,
+                button: "button4",
+            },
+            6: {
+                game: 2,
+                button: "button5",
+            },
+            7: {
+                game: 2,
+                button: "button6",
+            },
+            8: {
+                game: 2,
+                button: "button7",
+            },
+            9: {
+                game: 2,
+                button: "button8",
+            },
+            // game 3
+            10: {
+                game: 3,
+                button: "buttonStart",
+            },
+            11: {
+                game: 3,
+                button: "buttonHelp",
+            },
+            12: {
+                game: 3,
+                button: "buttonSolve",
+            },
+        },
+    },
+});
+
+export function setupInputBackend() {
+    uibuilder.onChange("msg", (msg) => {
+        const data = msg.payload.hasOwnProperty("in") ? msg.payload.in : msg.payload;
+        const device = msg.topic;
+
+        const keyIndex = data.findIndex((value) => value === 0);
+        const inputData = INPUTS[device].inputCodes[keyIndex];
+
+        const event = new CustomEvent("input:game" + inputData.game, {
+            detail: {
+                button: inputData.button,
+            },
+        });
+        document.dispatchEvent(event);
     });
 }
 
-
-export const inputGeneric = Object.freeze({
-    BUTTON_START: "buttonStart",
-    BUTTON_HELP: "buttonHelp",
-});
-
-export function onInputGeneric(keyName, cb) {
-    cb(keyName);
-}
-
-export const inputHateSpeech = Object.freeze({
-    BUTTON_1: "hateSpeech_button1",
-    BUTTON_2: "hateSpeech_button2",
-    BUTTON_3: "hateSpeech_button3",
-    BUTTON_4: "hateSpeech_button4",
-    BUTTON_5: "hateSpeech_button5",
-    BUTTON_6: "hateSpeech_button6",
-    BUTTON_7: "hateSpeech_button7",
-    BUTTON_8: "hateSpeech_button8",
-});
-
-export function onInputHateSpeech(keyName, cb) {
-    cb(keyName);
-}
-
-export const inputUnknownLanguage = Object.freeze({
-    BUTTON_1: "unknownLanguage_button1",
-    BUTTON_2: "unknownLanguage_button2",
-    BUTTON_3: "unknownLanguage_button3",
-    BUTTON_4: "unknownLanguage_button4",
-    BUTTON_5: "unknownLanguage_button5",
-    BUTTON_6: "unknownLanguage_button6",
-    BUTTON_7: "unknownLanguage_button7",
-    BUTTON_8: "unknownLanguage_button8",
-});
-
-export function onInputUnknownLanguage(keyName, cb) {
-    cb(keyName);
-}
-
-export const inputEmotions = Object.freeze({
-    BUTTON_SOLVED: "emotion_buttonSolved",
-});
-
-export function onInputEmotions(keyName, cb) {
-    cb(keyName);
-}
-
-export const inputQuizWG = Object.freeze({
-    BUTTON_A: "quizWG_buttonA",
-    BUTTON_B: "quizWG_buttonB",
-    BUTTON_C: "quizWG_buttonC",
-    BUTTON_D: "quizWG_buttonD",
-})
-
-export function onInputQuizWG(keyName, cb) {
-    cb(keyName);
+export function spoofInputBackend(gameId, buttonId) {
+    const event = new CustomEvent("input:game" + gameId, {
+        detail: {
+            button: buttonId,
+        },
+    });
+    document.dispatchEvent(event);
 }

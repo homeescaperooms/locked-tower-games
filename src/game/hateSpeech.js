@@ -1,8 +1,7 @@
 import "../fonts.css";
 import "../lib/style.css";
 
-import { inputGeneric, inputHateSpeech, onInputBackend } from "../lib/control/control.js";
-import { spoofGenericInput, spoofHateSpeechInput } from "../lib/control/controlSpoof.js";
+import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
 import { initAfterLoad } from "../lib/init.js";
 import { hideModal, showModal } from "../lib/meta/modal.js";
 import { Timer } from "../lib/timer/timer.js";
@@ -20,15 +19,18 @@ let helpModal;
 let currentTryInputs = [];
 let resetTimer;
 
-function onInput(keyName) {
+function onInput({ detail }) {
+    const button = detail.button;
+    console.log("btn", button);
+
     // on ANY input, reset timer
     if (resetTimer) resetTimer.reset();
 
-    if (keyName === inputGeneric.BUTTON_START) {
+    if (button === "buttonStart") {
         //
     }
 
-    if (keyName === inputGeneric.BUTTON_HELP) {
+    if (button === "buttonHelp") {
         if (helpModal) {
             hideModal(helpModal);
             helpModal = null;
@@ -42,62 +44,20 @@ function onInput(keyName) {
     // Disallow other key events when help is shown
     if (helpModal) return;
 
-    const afterInput = () => {
-        updateProgress(currentTryInputs, SOLUTIONS[DIFFICULTY]);
-        const correct = compareSolution(currentTryInputs, SOLUTIONS[DIFFICULTY]);
-        if (correct) solveGame();
+    // Number buttons input
+    for (let i = 1; i < 7; i++) {
+        if (button === "button" + i) {
+            if (currentTryInputs.includes(i)) return;
+            currentTryInputs.push(i);
 
-        if (isInputFinished(currentTryInputs, SOLUTIONS[DIFFICULTY])) {
-            resetGame();
+            updateProgress(currentTryInputs, SOLUTIONS[DIFFICULTY]);
+            const correct = compareSolution(currentTryInputs, SOLUTIONS[DIFFICULTY]);
+            if (correct) solveGame();
+
+            if (isInputFinished(currentTryInputs, SOLUTIONS[DIFFICULTY])) {
+                resetGame();
+            }
         }
-    };
-
-    if (keyName === inputHateSpeech.BUTTON_1) {
-        if (currentTryInputs.includes(1)) return;
-        currentTryInputs.push(1);
-        afterInput();
-    }
-
-    if (keyName === inputHateSpeech.BUTTON_2) {
-        if (currentTryInputs.includes(2)) return;
-        currentTryInputs.push(2);
-        afterInput();
-    }
-
-    if (keyName === inputHateSpeech.BUTTON_3) {
-        if (currentTryInputs.includes(3)) return;
-        currentTryInputs.push(3);
-        afterInput();
-    }
-
-    if (keyName === inputHateSpeech.BUTTON_4) {
-        if (currentTryInputs.includes(4)) return;
-        currentTryInputs.push(4);
-        afterInput();
-    }
-
-    if (keyName === inputHateSpeech.BUTTON_5) {
-        if (currentTryInputs.includes(5)) return;
-        currentTryInputs.push(5);
-        afterInput();
-    }
-
-    if (keyName === inputHateSpeech.BUTTON_6) {
-        if (currentTryInputs.includes(6)) return;
-        currentTryInputs.push(6);
-        afterInput();
-    }
-
-    if (keyName === inputHateSpeech.BUTTON_7) {
-        if (currentTryInputs.includes(7)) return;
-        currentTryInputs.push(7);
-        afterInput();
-    }
-
-    if (keyName === inputHateSpeech.BUTTON_8) {
-        if (currentTryInputs.includes(8)) return;
-        currentTryInputs.push(8);
-        afterInput();
     }
 }
 
@@ -138,12 +98,26 @@ function isInputFinished(currentSolution, correctSolution) {
 }
 
 initAfterLoad(() => {
-    onInputBackend((topic, payload) => {
-        console.log("ui builder input from hate speech", topic, payload)
+    setupInputBackend();
+
+    // spoof input
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            spoofInputBackend(1, "buttonStart");
+        } else if (event.key === "Escape") {
+            spoofInputBackend(1, "buttonHelp");
+        } else {
+            const keyNum = parseInt(event.key, 10);
+            if (keyNum >= 1 && keyNum < 8) {
+                spoofInputBackend(1, "button" + keyNum.toString());
+            }
+        }
     });
 
-    spoofGenericInput(onInput);
-    spoofHateSpeechInput(onInput);
+    // listen
+    document.addEventListener("input:game1", onInput);
+
+    // game specific
     updateProgress(currentTryInputs, SOLUTIONS[DIFFICULTY]);
 
     resetTimer = new Timer(RESET_TIMER_SECONDS, () => {

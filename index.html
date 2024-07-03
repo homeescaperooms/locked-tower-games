@@ -15,16 +15,16 @@
         </main>
 
         <script type="module">
-            import { inputGeneric, inputHateSpeech } from "./src/lib/control/control.js";
-            import { spoofGenericInput } from "./src/lib/control/controlSpoof.js";
+            import { setupInputBackend, spoofInputBackend } from "./src/lib/control/control.js";
             import { initAfterLoad } from "./src/lib/init.js";
             import { infoButton } from "./src/lib/meta/infoButton.js";
             import { showModal } from "./src/lib/meta/modal.js";
 
-            function onInput(keyName) {
-                console.log(keyName);
+            function onInput({ detail }) {
+                const button = detail.button;
+                console.log("btn", button);
 
-                if (keyName === inputGeneric.BUTTON_START) {
+                if (button === "buttonStart") {
                     const urlParams = new URLSearchParams(window.location.search);
                     const gameId = urlParams.get("game");
                     if (gameId) {
@@ -36,7 +36,17 @@
             }
 
             initAfterLoad(() => {
-                spoofGenericInput(onInput);
+                setupInputBackend();
+
+                // spoof input
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Enter") {
+                        spoofInputBackend(1, "buttonStart");
+                    }
+                });
+
+                // listen
+                document.addEventListener("input:game1", onInput);
             });
         </script>
     </body>

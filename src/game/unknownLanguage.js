@@ -2,8 +2,7 @@ import "../fonts.css";
 import "../lib/style.css";
 
 import { sleep } from "../helper.js";
-import { inputGeneric, inputUnknownLanguage } from "../lib/control/control.js";
-import { spoofGenericInput, spoofUnknownLanguageInput } from "../lib/control/controlSpoof.js";
+import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
 import { initAfterLoad } from "../lib/init.js";
 import { hideModal, showModal } from "../lib/meta/modal.js";
 import { Timer } from "../lib/timer/timer.js";
@@ -13,43 +12,42 @@ const DIFFICULTY = "hard"; // "easy" or "hard"
 const HELP_TEXT = "hilfe für unknown language";
 const RESET_TIMER_SECONDS = 120;
 const COUNTDOWN_TIMER_SECONDS = 5;
-const TIME_BETWEEN_SYMBOLS_MS = 500; // 0.5 seconds
-const TIME_EACH_SYMBOL_IS_SHOWN_MS = 1000; // 1 second
+const TIME_BETWEEN_SYMBOLS_MS = 300; // 0.5 seconds
 const SYMBOL_IMG_WIDTH_PX = 98;
 const SYMBOL_IMG_HEIGHT_PX = 47;
 
 const SYMBOL_MAP = {
     A: {
         src: "/content/unknown_language/symbol_1.png",
-        button: inputUnknownLanguage.BUTTON_1,
+        button: "button1",
     },
     B: {
         src: "/content/unknown_language/symbol_2.png",
-        button: inputUnknownLanguage.BUTTON_2,
+        button: "button2",
     },
     C: {
         src: "/content/unknown_language/symbol_3.png",
-        button: inputUnknownLanguage.BUTTON_3,
+        button: "button3",
     },
     D: {
         src: "/content/unknown_language/symbol_4.png",
-        button: inputUnknownLanguage.BUTTON_4,
+        button: "button4",
     },
     E: {
         src: "/content/unknown_language/symbol_5.png",
-        button: inputUnknownLanguage.BUTTON_5,
+        button: "button5",
     },
     F: {
         src: "/content/unknown_language/symbol_6.png",
-        button: inputUnknownLanguage.BUTTON_6,
+        button: "button6",
     },
     G: {
         src: "/content/unknown_language/symbol_7.png",
-        button: inputUnknownLanguage.BUTTON_7,
+        button: "button7",
     },
     H: {
         src: "/content/unknown_language/symbol_8.png",
-        button: inputUnknownLanguage.BUTTON_8,
+        button: "button8",
     },
 };
 
@@ -124,7 +122,10 @@ let currentTryInputs = [];
 let resetTimer;
 let canInput = false;
 
-function onInput(keyName) {
+function onInput({ detail }) {
+    const button = detail.button;
+    console.log("btn", button);
+
     // on ANY input, reset timer
     if (resetTimer) resetTimer.reset();
 
@@ -133,11 +134,11 @@ function onInput(keyName) {
         return;
     }
 
-    if (keyName === inputGeneric.BUTTON_START) {
+    if (button === "buttonStart") {
         //
     }
 
-    if (keyName === inputGeneric.BUTTON_HELP) {
+    if (button === "buttonHelp") {
         if (helpModal) {
             hideModal(helpModal);
             helpModal = null;
@@ -161,20 +162,20 @@ function onInput(keyName) {
         }
     };
 
-    const findLetterForButton = (button) => {
+    const findLetterForButton = (btn) => {
         for (const [letter, symbol] of Object.entries(SYMBOL_MAP)) {
-            if (symbol.button === button) return letter;
+            if (symbol.button === btn) return letter;
         }
         return null;
     };
 
     // can abstract each button into this generic function call
-    const letter = findLetterForButton(keyName);
+    const letter = findLetterForButton(button);
     if (letter) {
         currentTryInputs.push(letter);
         afterInput();
     } else {
-        console.error(`Pushed unknown button ${keyName}, which does not have a letter.`);
+        console.error(`Pushed unknown button ${button}, which does not have a letter.`);
     }
 }
 
@@ -222,8 +223,26 @@ function isInputFinished(currentSolution, correctSolution) {
 }
 
 initAfterLoad(() => {
-    spoofGenericInput(onInput);
-    spoofUnknownLanguageInput(onInput);
+    setupInputBackend();
+
+    // spoof input
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            spoofInputBackend(2, "buttonStart");
+        } else if (event.key === "Escape") {
+            spoofInputBackend(2, "buttonHelp");
+        } else {
+            const keyNum = parseInt(event.key, 10);
+            if (keyNum >= 1 && keyNum < 9) {
+                spoofInputBackend(2, "button" + keyNum.toString());
+            }
+        }
+    });
+
+    // listen
+    document.addEventListener("input:game2", onInput);
+
+    // game specific
     updateProgress(currentTryInputs, SOLUTIONS[DIFFICULTY]);
 
     // countdown timer
@@ -279,8 +298,6 @@ async function showSymbols() {
     for (const phase of phases) {
         const src = import.meta.env.BASE_URL + SYMBOL_MAP[phase.symbol].src;
         showSymbolAt(src, phase.x, phase.y);
-        await sleep(TIME_EACH_SYMBOL_IS_SHOWN_MS);
-        deleteSymbol();
         await sleep(TIME_BETWEEN_SYMBOLS_MS);
     }
 
