@@ -36,3 +36,11 @@ export const inputUnknownLanguage = Object.freeze({
 export function onInputUnknownLanguage(keyName, cb) {
     cb(keyName);
 }
+
+export const inputEmotions = Object.freeze({
+    BUTTON_SOLVED: "emotion_buttonSolved",
+});
+
+export function onInputEmotions(keyName, cb) {
+    cb(keyName);
+}

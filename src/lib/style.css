@@ -110,3 +110,16 @@ main.unknown_language .countdown {
 main.unknown_language .progress {
     color: white;
 }
+
+/* emotions */
+main.emotions article {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+main.emotions article video {
+    width: 100%;
+}
