@@ -1,4 +1,4 @@
-//import "../../lib/uibuilder/uibuilder.esm.min.js";
+import "../../lib/uibuilder/uibuilder.esm.min.js";
 
 const INPUTS = Object.freeze({
     arduino_0: {
@@ -124,7 +124,6 @@ const INPUTS = Object.freeze({
 });
 
 export function setupInputBackend() {
-    return;
     uibuilder.onChange("msg", (msg) => {
         console.log("Got ui builder input. msg:", msg);
 
