@@ -52,9 +52,9 @@ function onInput({ detail }) {
 
             updateProgress(currentTryInputs, SOLUTIONS[DIFFICULTY]);
             const correct = compareSolution(currentTryInputs, SOLUTIONS[DIFFICULTY]);
-            if (correct) solveGame();
-
-            if (isInputFinished(currentTryInputs, SOLUTIONS[DIFFICULTY])) {
+            if (correct) {
+                solveGame();
+            } else if (isInputFinished(currentTryInputs, SOLUTIONS[DIFFICULTY])) {
                 resetGame();
             }
         }
@@ -67,6 +67,7 @@ function resetGame() {
 }
 
 function solveGame() {
+    console.log(document.querySelector("a.solve"));
     document.querySelector("a.solve").click();
 }
 

@@ -155,9 +155,9 @@ function onInput({ detail }) {
     const afterInput = () => {
         updateProgress(currentTryInputs, SOLUTIONS[DIFFICULTY]);
         const correct = compareSolution(currentTryInputs, SOLUTIONS[DIFFICULTY]);
-        if (correct) solveGame();
-
-        if (isInputFinished(currentTryInputs, SOLUTIONS[DIFFICULTY])) {
+        if (correct) {
+            solveGame();
+        } else if (isInputFinished(currentTryInputs, SOLUTIONS[DIFFICULTY])) {
             resetGame();
         }
     };

@@ -112,14 +112,24 @@ main.unknown_language .progress {
 }
 
 /* emotions */
+main.emotions {
+    width: 100vw;
+}
+
 main.emotions article {
     display: flex;
+    width: 100vw;
+    max-width: 100vw;
     justify-content: center;
     align-items: center;
     gap: 1rem;
     padding: 1rem;
 }
 
-main.emotions article video {
+main.emotions article div {
+    flex: 1;
+}
+
+main.emotions article div video {
     width: 100%;
 }
