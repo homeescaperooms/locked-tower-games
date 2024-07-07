@@ -125,11 +125,17 @@ const INPUTS = Object.freeze({
 
 export function setupInputBackend() {
     uibuilder.onChange("msg", (msg) => {
+        console.log("Got ui builder input. msg:", msg);
+
         const data = msg.payload.hasOwnProperty("in") ? msg.payload.in : msg.payload;
         const device = msg.topic;
 
+        console.log("Determined payload and device", "payload:", data, "; device:", device);
+
         const keyIndex = data.findIndex((value) => value === 0);
         const inputData = INPUTS[device].inputCodes[keyIndex];
+
+        console.log("Determined input data", inputData, " --sending event now");
 
         const event = new CustomEvent("input:game" + inputData.game, {
             detail: {
