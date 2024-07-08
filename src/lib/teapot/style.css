@@ -1,4 +1,4 @@
-:root {
+/*:root {
     --color-primary-darkest: #532800;
     --color-primary-darker: #a95d06;
     --color-primary: #ff9900;
@@ -57,7 +57,7 @@ main {
 
     border: 2px solid var(--color-text);
     box-shadow: 0px 2px 0 var(--color-text);
-}
+}*/
 
 .status {
     display: flex;

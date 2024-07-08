@@ -324,23 +324,25 @@ export class Answer {
         return this;
     }
 
-    addTextButton(text, isCorrectAnswer) {
+    addTextButton(text, isCorrectAnswer, buttonEventId) {
         this.content.push({
             type: ANSWER_BUTTON_TYPES.TEXT,
             text,
             correct: isCorrectAnswer,
             id: this.elementIndex++,
+            buttonEventId,
         });
 
         return this;
     }
 
-    addImageButton(src, isCorrectAnswer) {
+    addImageButton(src, isCorrectAnswer, buttonEventId) {
         this.content.push({
             type: ANSWER_BUTTON_TYPES.IMAGE,
             src,
             correct: isCorrectAnswer,
             id: this.elementIndex++,
+            buttonEventId,
         });
 
         return this;
@@ -384,6 +386,7 @@ export class Answer {
                     el = document.createElement("button");
                     el.setAttribute("data-id", c.id);
                     el.setAttribute("data-correct", c.correct);
+                    el.setAttribute("data-button-event-id", c.buttonEventId);
                     el.innerHTML = `<div class="text-content"><span>${c.text}</span></div>`;
                     this._createButtonEventListener(el, "tp:answer-button-clicked");
 
@@ -402,6 +405,7 @@ export class Answer {
                     el = document.createElement("button");
                     el.setAttribute("data-id", c.id);
                     el.setAttribute("data-correct", c.correct);
+                    el.setAttribute("data-button-event-id", c.buttonEventId);
                     el.innerHTML = `<img src="${c.src}" />`;
                     this._createButtonEventListener(el, "tp:answer-button-clicked");
 
