@@ -9,6 +9,7 @@ export default defineConfig({
                 main: resolve(__dirname, "index.html"),
                 solved: resolve(__dirname, "solved.html"),
                 difficulty: resolve(__dirname, "difficulty.html"),
+                intro: resolve(__dirname, "intro.html"),
                 gameHateSpeech: resolve(__dirname, "game/hate_speech.html"),
                 gameUnknownLanguage: resolve(__dirname, "game/unknown_language.html"),
                 gameEmotions: resolve(__dirname, "game/emotions.html"),
