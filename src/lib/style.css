@@ -77,6 +77,16 @@ main .progress .indicator {
     align-items: center;
 }
 
+/* intro */
+main.intro video {
+    object-fit: cover;
+}
+
+/* solved */
+main.solved video {
+    object-fit: cover;
+}
+
 /* hate speech */
 
 main.hate_speech .progress .indicator {

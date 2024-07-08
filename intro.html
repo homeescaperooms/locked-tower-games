@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tower</title>
+    </head>
+    <body>
+        <main class="intro">
+            <video playsinline muted style="pointer-events: none" class="intro"></video>
+        </main>
+
+        <script type="module">
+            import { initAfterLoad } from "./src/lib/init.js";
+            import "./src/fonts.css";
+            import "./src/lib/style.css";
+            import { getDifficulty } from "./src/lib/difficulty.js";
+
+            function getAssetName(gameName) {
+                if (gameName === "hate_speech") {
+                    return "intro_r1";
+                } else if (gameName === "unknown_language") {
+                    return "intro_r2";
+                } else if (gameName === "emotions") {
+                    const difficulty = getDifficulty();
+                    return `intro_r3_${difficulty}`;
+                } else if (gameName === "quiz_wg") {
+                    return "intro_r4";
+                }
+            }
+
+            initAfterLoad(() => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const gameId = urlParams.get("game");
+
+                // add video source child element
+                const video = document.querySelector("video.intro");
+                const source = document.createElement("source");
+                source.src = import.meta.env.BASE_URL + `content/common/intro/${getAssetName(gameId)}.mp4`;
+                source.type = "video/mp4";
+                video.appendChild(source);
+                video.play();
+
+                video.addEventListener("ended", (ev) => {
+                    window.location.href = import.meta.env.BASE_URL + `game/${gameId}.html`;
+                });
+            });
+        </script>
+    </body>
+</html>

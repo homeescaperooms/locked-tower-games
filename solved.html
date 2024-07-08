@@ -6,17 +6,26 @@
         <title>Tower</title>
     </head>
     <body>
-        <main></main>
+        <main class="solved">
+            <video autoplay playsinline muted style="pointer-events: none" class="outro">
+                <source src="/content/common/outro/outro.mp4" type="video/mp4" />
+            </video>
+        </main>
 
         <script type="module">
             import { initAfterLoad } from "./src/lib/init.js";
+            import "./src/fonts.css";
+            import "./src/lib/style.css";
 
             initAfterLoad(() => {
                 const urlParams = new URLSearchParams(window.location.search);
                 const gameId = urlParams.get("game");
-                if (gameId) {
-                    document.querySelector("main").innerHTML = `[lösungsvideo für ${gameId}]`;
-                }
+
+                console.log("solved game", gameId);
+
+                document.querySelector("video.outro").addEventListener("ended", (ev) => {
+                    window.location.href = import.meta.env.BASE_URL;
+                });
             });
         </script>
     </body>

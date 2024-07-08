@@ -3,13 +3,14 @@ import "../lib/style.css";
 import "../lib/teapot/style.css";
 
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
+import { getDifficulty } from "../lib/difficulty.js";
 import { initAfterLoad } from "../lib/init.js";
 import { hideModal, showModal } from "../lib/meta/modal.js";
 import { Answer, Game, Question, Round } from "../lib/teapot/types.js";
 import { Timer } from "../lib/timer/timer.js";
 
 /* config */
-const DIFFICULTY = "easy"; // "easy" or "hard"
+const DIFFICULTY = getDifficulty();
 const HELP_TEXT = "hilfe für quiz wg";
 const RESET_TIMER_SECONDS = 120;
 const LIVES = {

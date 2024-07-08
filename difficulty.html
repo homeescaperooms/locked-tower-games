@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tower</title>
+    </head>
+    <body>
+        <main>
+            <h1>Schwierigkeit für diese Seite</h1>
+            <p>Setze die Schwierigkeit für diese Seite des Towers.</p>
+            <p>Die momentane Schwierigkeit ist: <code class="current-difficulty"></code></p>
+            <button class="easy">Setze auf "easy"</button>
+            <button class="hard">Setze auf "hard"</button>
+        </main>
+
+        <script type="module">
+            import { setupInputBackend } from "./src/lib/control/control.js";
+            import { initAfterLoad } from "./src/lib/init.js";
+            import { getDifficulty, setDifficulty } from "./src/lib/difficulty.js";
+
+            initAfterLoad(() => {
+                setupInputBackend();
+
+                const difficulty = getDifficulty();
+                document.querySelector(".current-difficulty").textContent = difficulty;
+
+                document.querySelector(".easy").addEventListener("click", () => {
+                    setDifficulty("easy");
+                    document.querySelector(".current-difficulty").textContent = "easy";
+                });
+
+                document.querySelector(".hard").addEventListener("click", () => {
+                    setDifficulty("hard");
+                    document.querySelector(".current-difficulty").textContent = "hard";
+                });
+            });
+        </script>
+    </body>
+</html>
