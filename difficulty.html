@@ -6,7 +6,7 @@
         <title>Tower</title>
     </head>
     <body>
-        <main>
+        <main style="display: block">
             <h1>Schwierigkeit für diese Seite</h1>
             <p>Setze die Schwierigkeit für diese Seite des Towers.</p>
             <p>Drücke auf die Buttons oder wechsle mit dem Start-Button (oder Enter) durch.</p>
@@ -19,6 +19,8 @@
             import { setupInputBackend, spoofInputBackend } from "./src/lib/control/control.js";
             import { initAfterLoad } from "./src/lib/init.js";
             import { getDifficulty, setDifficulty } from "./src/lib/difficulty.js";
+            import "./src/fonts.css";
+            import "./src/lib/style.css";
 
             function toggleDifficulty() {
                 const difficulty = getDifficulty();

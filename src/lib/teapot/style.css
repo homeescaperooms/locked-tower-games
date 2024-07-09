@@ -207,7 +207,6 @@ button .text-content {
 
 #timer {
     position: relative;
-    font-family: "Roboto Mono", monospace;
 }
 #timer.paused {
     color: var(--color-text-lighter);

@@ -4,19 +4,19 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Tower</title>
-
         <style>
             /* emergency css */
-            html,
-            body {
-                background: black;
+            body,
+            html {
+                color: white;
+                background: white;
             }
         </style>
     </head>
     <body>
         <main class="index">
             <div>
-                <span>Drücke den Start-Knopf, um zu starten.</span>
+                <h1>Drücke den Start-Knopf, um zu starten.</h1>
                 <a style="display: none" href="/tower">x</a>
             </div>
         </main>
@@ -56,12 +56,12 @@
                     } else if (gameName === "quiz_wg") {
                         gameId = 4;
                     } else {
-                        document.querySelector("span").textContent = `Fehler: Unbekanntes Spiel ("${gameName}") in URL-Parameter angegeben.`;
+                        document.querySelector("h1").textContent = `Fehler: Unbekanntes Spiel ("${gameName}") in URL-Parameter angegeben.`;
                     }
 
                     document.querySelector("a").href = `/tower/intro.html?game=${gameName}`;
                 } else {
-                    document.querySelector("span").textContent = "Fehler: Kein Spiel in URL-Parameter angegeben.";
+                    document.querySelector("h1").textContent = "Fehler: Kein Spiel in URL-Parameter angegeben.";
                 }
 
                 // spoof input

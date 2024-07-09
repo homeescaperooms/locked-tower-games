@@ -7,8 +7,10 @@
     --color-bg: #000;
     --color-fg: #daeeff;
 
-    --color-text: #ffffff;
-    --color-text-lighter: #656f79;
+    --color-aok-green: #005e3f;
+    --color-aok-green-lighter: #50eb5d;
+    --color-white: #fff;
+    --color-text: #4e5050;
 }
 
 html {
@@ -30,15 +32,23 @@ html {
 }
 
 body {
-    font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    font-family: AOKBuenosAiresText, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
         "Segoe UI Emoji", "Segoe UI Symbol";
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: var(--color-text);
+    background: var(--color-white);
+}
 
-    background: var(--color-bg);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: AOKBuenosAires, sans-serif;
 }
 
 main {
@@ -77,11 +87,34 @@ main .progress .indicator {
     align-items: center;
 }
 
+main.game h1 {
+    margin: 0;
+    padding: 0.2rem;
+    width: 100%;
+    background: var(--color-aok-green);
+    color: var(--color-white);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+}
+main.game h1:before {
+    content: "";
+    display: inline-flex;
+    background-image: url("/content/common/header_logo_placeholder.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 80px;
+    height: 80px;
+}
+
 /* index */
 main.index {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: var(--color-aok-green);
 }
 
 /* intro */
