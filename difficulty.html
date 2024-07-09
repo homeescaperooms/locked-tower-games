@@ -9,31 +9,71 @@
         <main>
             <h1>Schwierigkeit für diese Seite</h1>
             <p>Setze die Schwierigkeit für diese Seite des Towers.</p>
+            <p>Drücke auf die Buttons oder wechsle mit dem Start-Button (oder Enter) durch.</p>
             <p>Die momentane Schwierigkeit ist: <code class="current-difficulty"></code></p>
             <button class="easy">Setze auf "easy"</button>
             <button class="hard">Setze auf "hard"</button>
         </main>
 
         <script type="module">
-            import { setupInputBackend } from "./src/lib/control/control.js";
+            import { setupInputBackend, spoofInputBackend } from "./src/lib/control/control.js";
             import { initAfterLoad } from "./src/lib/init.js";
             import { getDifficulty, setDifficulty } from "./src/lib/difficulty.js";
+
+            function toggleDifficulty() {
+                const difficulty = getDifficulty();
+                if (difficulty === "easy") {
+                    setPageDifficulty("hard");
+                } else {
+                    setPageDifficulty("easy");
+                }
+            }
+
+            function setPageDifficulty(dif) {
+                setDifficulty(dif);
+                document.querySelector(".current-difficulty").textContent = dif;
+
+                const allButtons = document.querySelectorAll("button");
+                allButtons.forEach((button) => {
+                    button.disabled = false;
+                });
+
+                const button = document.querySelector("button." + dif);
+                button.disabled = true;
+            }
 
             initAfterLoad(() => {
                 setupInputBackend();
 
                 const difficulty = getDifficulty();
                 document.querySelector(".current-difficulty").textContent = difficulty;
+                const button = document.querySelector("button." + difficulty);
+                button.disabled = true;
 
                 document.querySelector(".easy").addEventListener("click", () => {
-                    setDifficulty("easy");
-                    document.querySelector(".current-difficulty").textContent = "easy";
+                    setPageDifficulty("easy");
                 });
 
                 document.querySelector(".hard").addEventListener("click", () => {
-                    setDifficulty("hard");
-                    document.querySelector(".current-difficulty").textContent = "hard";
+                    setPageDifficulty("hard");
                 });
+
+                // spoof input
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Enter") {
+                        spoofInputBackend(1, "buttonStart");
+                    }
+                });
+
+                // hw input
+                const hwInput = ({ detail }) => {
+                    if (detail.button === "buttonStart") toggleDifficulty();
+                };
+
+                document.addEventListener("input:game1", hwInput);
+                document.addEventListener("input:game2", hwInput);
+                document.addEventListener("input:game3", hwInput);
+                document.addEventListener("input:game4", hwInput);
             });
         </script>
     </body>
