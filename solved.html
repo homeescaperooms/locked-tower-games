@@ -24,7 +24,7 @@
                 console.log("solved game", gameId);
 
                 document.querySelector("video.outro").addEventListener("ended", (ev) => {
-                    window.location.href = import.meta.env.BASE_URL;
+                    window.location.href = import.meta.env.BASE_URL + "game.html?game=" + gameId;
                 });
             });
         </script>

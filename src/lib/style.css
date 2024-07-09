@@ -4,7 +4,7 @@
     --color-primary: #ff9900;
     --color-primary-lighter: #ffcc66;
 
-    --color-bg: #131415;
+    --color-bg: #000;
     --color-fg: #daeeff;
 
     --color-text: #ffffff;
@@ -72,6 +72,13 @@ main .progress {
 }
 
 main .progress .indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* index */
+main.index {
     display: flex;
     justify-content: center;
     align-items: center;

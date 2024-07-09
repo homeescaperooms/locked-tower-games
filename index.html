@@ -4,11 +4,19 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Tower</title>
+
+        <style>
+            /* emergency css */
+            html,
+            body {
+                background: black;
+            }
+        </style>
     </head>
     <body>
-        <main>
+        <main class="index">
             <div>
-                <span> Drücke den Start-Knopf (ENTER), um zu starten.</span>
+                <span>Drücke den Start-Knopf, um zu starten.</span>
                 <a style="display: none" href="/tower">x</a>
             </div>
         </main>
@@ -18,6 +26,8 @@
             import { initAfterLoad } from "./src/lib/init.js";
             import { infoButton } from "./src/lib/meta/infoButton.js";
             import { showModal } from "./src/lib/meta/modal.js";
+            import "./src/fonts.css";
+            import "./src/lib/style.css";
 
             let gameId;
             let gameName;
@@ -45,9 +55,13 @@
                         gameId = 3;
                     } else if (gameName === "quiz_wg") {
                         gameId = 4;
+                    } else {
+                        document.querySelector("span").textContent = `Fehler: Unbekanntes Spiel ("${gameName}") in URL-Parameter angegeben.`;
                     }
 
                     document.querySelector("a").href = `/tower/intro.html?game=${gameName}`;
+                } else {
+                    document.querySelector("span").textContent = "Fehler: Kein Spiel in URL-Parameter angegeben.";
                 }
 
                 // spoof input
