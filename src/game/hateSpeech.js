@@ -2,6 +2,7 @@ import "../fonts.css";
 import "../lib/style.css";
 
 import { configGlobal, configHateSpeech } from "../../config.js";
+import { colorOverwrite } from "../lib/color.js";
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
 import { getDifficulty } from "../lib/difficulty.js";
 import { initAfterLoad } from "../lib/init.js";
@@ -66,7 +67,8 @@ function solveGame() {
 }
 
 function updateProgress(currentSolution, correctSolution) {
-    let innerString = "";
+    let innerString = '<span class="input-text">Eingabe: </span>';
+
     for (let i = 0; i < correctSolution.length; i++) {
         const isFilledOut = i < currentSolution.length;
         let content = null;
@@ -113,6 +115,9 @@ initAfterLoad(() => {
     document.addEventListener("input:game1", onInput);
 
     // game specific
+    colorOverwrite(document.querySelector("main"), configHateSpeech.colorOverwrite);
+    document.querySelector("h1").textContent = configHateSpeech.questionText;
+
     updateProgress(currentTryInputs, configHateSpeech.solutions[DIFFICULTY]);
 
     resetTimer = new Timer(configGlobal.resetTimerSeconds, () => {

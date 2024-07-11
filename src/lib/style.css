@@ -10,7 +10,7 @@
     --color-aok-green: #005e3f;
     --color-aok-green-lighter: #50eb5d;
     --color-white: #fff;
-    --color-text: #4e5050;
+    --color-gray: #4e5050;
 }
 
 html {
@@ -32,6 +32,12 @@ html {
 }
 
 body {
+    --color-primary: var(--color-aok-green);
+    --color-primary-lighter: var(--color-aok-green-lighter);
+    --color-background: var(--color-white);
+    --color-text: var(--color-gray);
+    --color-text-inverted: var(--color-white);
+
     font-family: AOKBuenosAiresText, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
         "Segoe UI Emoji", "Segoe UI Symbol";
     display: flex;
@@ -39,7 +45,7 @@ body {
     align-items: center;
     justify-content: center;
     color: var(--color-text);
-    background: var(--color-white);
+    background: var(--color-background);
 }
 
 h1,
@@ -75,24 +81,35 @@ main h1 {
 
 main .progress {
     padding: 1rem;
-    justify-content: center;
-    color: black;
     display: flex;
     gap: 1rem;
+    justify-content: center;
+    align-content: center;
+}
+
+main .progress .input-text {
+    display: flex;
+    align-self: center;
+    color: var(--color-text);
 }
 
 main .progress .indicator {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 50px;
+    height: 50px;
+    background: var(--color-primary);
+    color: var(--color-text-inverted);
+    border-radius: 100%;
 }
 
 main.game h1 {
     margin: 0;
-    padding: 0.2rem;
+    padding: 0.2rem 2rem;
     width: 100%;
     background: var(--color-aok-green);
-    color: var(--color-white);
+    color: var(--color-text-inverted);
     text-align: left;
     display: flex;
     align-items: center;
@@ -102,11 +119,13 @@ main.game h1 {
 main.game h1:before {
     content: "";
     display: inline-flex;
-    background-image: url("/content/common/header_logo_placeholder.png");
+    background-image: url("/content/common/logo_wildgreen_white.svg");
     background-repeat: no-repeat;
     background-size: contain;
     width: 80px;
     height: 80px;
+    margin: 0.3rem;
+    margin-left: 0;
 }
 
 /* index */
@@ -114,7 +133,7 @@ main.index {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--color-aok-green);
+    color: var(--color-primary);
 }
 
 /* intro */
@@ -127,18 +146,11 @@ main.solved video {
     object-fit: cover;
 }
 
+/*
+ * GAMES
+ */
+
 /* hate speech */
-
-main.hate_speech .progress .indicator {
-    width: 50px;
-    height: 50px;
-    background: white;
-    border-radius: 100%;
-}
-
-main.hate_speech .progress .indicator.filled {
-    background: rgb(148, 67, 58);
-}
 
 /* unknown language */
 main.unknown_language article {
@@ -146,10 +158,6 @@ main.unknown_language article {
     height: 0px;
     justify-content: center;
     padding-top: 1rem;
-}
-
-main.unknown_language .progress {
-    color: black;
 }
 
 main.unknown_language video {
@@ -177,4 +185,143 @@ main.emotions article div {
 
 main.emotions article div video {
     width: 100%;
+}
+
+/* quiz wg */
+main.quiz_wg .status {
+    display: flex;
+    flex: 0 0 auto;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding: 2rem;
+    padding-bottom: 0;
+}
+
+main.quiz_wg #lifes {
+    display: flex;
+    gap: 0.25rem;
+    filter: invert(25%) sepia(11%) saturate(4724%) hue-rotate(119deg) brightness(101%) contrast(101%);
+}
+
+main.quiz_wg #timer {
+    position: relative;
+    font-size: 1.5rem;
+}
+main.quiz_wg #timer.paused {
+    color: var(--color-text-lighter);
+}
+main.quiz_wg #timer.disabled {
+    color: var(--color-fg) !important;
+    visibility: hidden;
+}
+main.quiz_wg #timer.disabled:after {
+    content: "--:--";
+    visibility: visible;
+    color: var(--color-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+main.quiz_wg .life {
+    height: 100%;
+    width: auto;
+    min-width: 16px;
+    min-height: 16px;
+    width: 32px;
+}
+
+main.quiz_wg .question-container .text-content {
+    color: var(--color-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main.quiz_wg h2 {
+    margin: 0;
+    text-align: center;
+}
+
+main.quiz_wg .question-container {
+    margin-bottom: 2rem;
+}
+
+main.quiz_wg .answer-container {
+    padding: 2rem;
+}
+
+main.quiz_wg button {
+    all: unset;
+
+    display: flex;
+    max-height: 100%;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-primary-lighter);
+    color: var(--color-text);
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease-in-out;
+    width: var(--scale, unset);
+    align-self: stretch;
+}
+
+main.quiz_wg button.hover,
+main.quiz_wg button:hover {
+    outline: 3px solid var(--color-primary-lighter);
+    outline-offset: -3px;
+    background: var(--color-background);
+}
+
+main.quiz_wg .button-set {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1rem;
+    max-height: 100%;
+
+    flex-direction: var(--layout, row);
+}
+
+main.quiz_wg .button-content {
+    position: relative;
+    flex: 1;
+    display: flex;
+    max-height: 100%;
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+}
+
+main.quiz_wg .button-content .text-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+main.quiz_wg .button-content:after {
+    content: attr(data-label);
+    display: inline-flex;
+    position: absolute;
+    left: 0.5rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    text-shadow: 1px 1px 0 var(--color-primary-lighter), 2px 2px 0 var(--color-primary-lighter);
+}
+
+@keyframes shrink {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
 }

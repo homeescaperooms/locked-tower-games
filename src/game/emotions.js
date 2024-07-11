@@ -2,6 +2,7 @@ import "../fonts.css";
 import "../lib/style.css";
 
 import { configEmotions, configGlobal } from "../../config.js";
+import { colorOverwrite } from "../lib/color.js";
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
 import { getDifficulty } from "../lib/difficulty.js";
 import { initAfterLoad } from "../lib/init.js";
@@ -76,6 +77,9 @@ initAfterLoad(() => {
     }
 
     // game specific
+    colorOverwrite(document.querySelector("main"), configEmotions.colorOverwrite);
+    document.querySelector("h1").textContent = configEmotions.questionText;
+
     resetTimer = new Timer(configGlobal.resetTimerSeconds, () => {
         // timeout is up, navigate back to start
         document.querySelector("a.reset").click();

@@ -2,6 +2,7 @@ import "../fonts.css";
 import "../lib/style.css";
 
 import { configGlobal, configUnknownLanguage } from "../../config.js";
+import { colorOverwrite } from "../lib/color.js";
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
 import { getDifficulty } from "../lib/difficulty.js";
 import { initAfterLoad } from "../lib/init.js";
@@ -70,13 +71,13 @@ function solveGame() {
 }
 
 function updateProgress(currentSolution, correctSolution) {
-    let innerString = "<span>Eingabe: </span>";
+    let innerString = '<span class="input-text">Eingabe: </span>';
 
     for (let i = 0; i < correctSolution.length; i++) {
         const isFilledOut = i < currentSolution.length;
-        let content = "_";
+        let content = null;
         if (isFilledOut) content = currentSolution[i];
-        innerString += `<div class="indicator"><span>${content}</span></div>`;
+        innerString += `<div class="indicator ${isFilledOut ? "filled" : ""}">${isFilledOut ? "<span>" + content + "</span>" : ""}</div>`;
     }
 
     document.querySelector(".progress").innerHTML = innerString;
@@ -118,6 +119,9 @@ initAfterLoad(() => {
     document.addEventListener("input:game2", onInput);
 
     // game specific
+    colorOverwrite(document.querySelector("main"), configUnknownLanguage.colorOverwrite);
+    document.querySelector("h1").textContent = configUnknownLanguage.questionText;
+
     updateProgress(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY]);
 
     // add video source child element

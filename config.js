@@ -3,6 +3,7 @@ export const configGlobal = {
 };
 
 export const configHateSpeech = {
+    questionText: "frage 1",
     helpText: "hilfe für hate speech",
     solutions: {
         easy: [1, 2, 3, 4],
@@ -11,7 +12,12 @@ export const configHateSpeech = {
 };
 
 export const configUnknownLanguage = {
+    questionText: "frage 2",
     helpText: "hilfe für unknown language",
+    colorOverwrite: {
+        "--color-primary": "var(--color-aok-green-lighter)",
+        "--color-text-inverted": "orange",
+    },
     buttonMap: {
         button1: "A",
         button2: "B",
@@ -29,13 +35,15 @@ export const configUnknownLanguage = {
 };
 
 export const configEmotions = {
+    questionText: "frage 3",
     helpText: "hilfe für emotions",
 };
 
 export const configQuizWG = {
+    questionText: "frage 4",
     helpText: "hilfe für quiz wg",
     gameOverText: `Du hast leider verloren. Drücke einen beliebigen Knopf, um neu zu starten.`,
-    lives: {
+    lifes: {
         easy: 5,
         hard: 3,
     },

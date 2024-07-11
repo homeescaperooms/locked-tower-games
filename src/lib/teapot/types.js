@@ -1,29 +1,29 @@
 import { appendChildren } from "../../helper.js";
 
 export class Game {
-    constructor(lives, rounds, onWon, onGameOver) {
+    constructor(lifes, rounds, onWon, onGameOver) {
         this.rounds = rounds;
-        this.lives = lives;
+        this.lifes = lifes;
         this.currentRound = 0;
 
         this.onWon = onWon;
         this.onGameOver = onGameOver;
     }
 
-    renderLives() {
-        const container = document.querySelector("#lives");
-        if (!container) throw Error("Couldn't find lives container.");
+    renderLifes() {
+        const container = document.querySelector("#lifes");
+        if (!container) throw Error("Couldn't find lifes container.");
 
         container.innerHTML = "";
 
-        const liveNode = document.createElement("img");
-        liveNode.src =
-            "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDgyMiA3MjkuNSIgdmlld0JveD0iMCAwIDgyMiA3MjkuNSI+PHBhdGggZD0iTTc1NiA2Ni4zYy04OC40LTg4LjQtMjMxLjItODguNC0zMTkuNiAwbC0yNS4zIDI1LjMtMjUuMy0yNS4zYy04OC40LTg4LjQtMjMxLjItODguNC0zMTkuNiAwLTg4LjQgODguNC04OC40IDIzMS4yIDAgMzE5LjZsMzQzLjYgMzQzLjYgMzQzLjYtMzQzLjZjOTEtODguNCA5MS0yMzIuNCAyLjYtMzE5LjZ6IiBzdHlsZT0iZmlsbDojZmYwMDFiIi8+PC9zdmc+";
-        liveNode.classList.add("live");
-        liveNode.alt = "❤️";
+        const lifeNode = document.createElement("img");
+        lifeNode.src =
+            "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDgyMiA3MjkuNSIgdmlld0JveD0iMCAwIDgyMiA3MjkuNSI+PHBhdGggZD0iTTc1NiA2Ni4zYy04OC40LTg4LjQtMjMxLjItODguNC0zMTkuNiAwbC0yNS4zIDI1LjMtMjUuMy0yNS4zYy04OC40LTg4LjQtMjMxLjItODguNC0zMTkuNiAwLTg4LjQgODguNC04OC40IDIzMS4yIDAgMzE5LjZsMzQzLjYgMzQzLjYgMzQzLjYtMzQzLjZjOTEtODguNCA5MS0yMzIuNCAyLjYtMzE5LjZ6IiBzdHlsZT0iZmlsbDojMDAwMDAwIi8+PC9zdmc+";
+        lifeNode.classList.add("life");
+        lifeNode.alt = "❤️";
 
-        for (let i = 0; i < this.lives; i++) {
-            container.appendChild(liveNode.cloneNode(true));
+        for (let i = 0; i < this.lifes; i++) {
+            container.appendChild(lifeNode.cloneNode(true));
         }
     }
 
@@ -43,10 +43,10 @@ export class Game {
         };
 
         onFail = () => {
-            this.lives--;
-            this.renderLives();
+            this.lifes--;
+            this.renderLifes();
 
-            if (this.lives > 0) {
+            if (this.lifes > 0) {
                 const round = this.rounds[this.currentRound];
                 round._applyCallbacks(onFinish, onFail);
                 round.restart();
@@ -55,7 +55,7 @@ export class Game {
             }
         };
 
-        this.renderLives();
+        this.renderLifes();
         const round = this.rounds[this.currentRound];
         round._applyCallbacks(onFinish, onFail);
         round.start();
@@ -235,7 +235,7 @@ export class Question {
 
             switch (c.type) {
                 case QUESTION_TYPES.TEXT_STATIC:
-                    el = document.createElement("p");
+                    el = document.createElement("h2");
                     el.innerHTML = c.text;
 
                     outerEl = document.createElement("div");
@@ -392,6 +392,7 @@ export class Answer {
 
                     outerEl = document.createElement("div");
                     outerEl.classList.add("button-content");
+                    outerEl.dataset.label = c.buttonEventId.replace("button", "");
                     outerEl.appendChild(el);
 
                     if (this.currentButtonSetContainer) {
@@ -411,6 +412,7 @@ export class Answer {
 
                     outerEl = document.createElement("div");
                     outerEl.classList.add("button-content");
+                    outerEl.dataset.label = c.buttonEventId.replace("button", "");
                     outerEl.appendChild(el);
 
                     if (this.currentButtonSetContainer) {
