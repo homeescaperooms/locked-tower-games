@@ -1,14 +1,11 @@
 import "../fonts.css";
 import "../lib/style.css";
 
+import { configEmotions, configGlobal } from "../../config.js";
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
 import { initAfterLoad } from "../lib/init.js";
 import { hideModal, showModal } from "../lib/meta/modal.js";
 import { Timer } from "../lib/timer/timer.js";
-
-/* config */
-const HELP_TEXT = "hilfe für emotions";
-const RESET_TIMER_SECONDS = 120;
 
 let helpModal;
 let resetTimer;
@@ -30,7 +27,7 @@ function onInput({ detail }) {
             helpModal = null;
         } else {
             helpModal = showModal({
-                text: HELP_TEXT,
+                text: configEmotions.helpText,
             });
         }
     }
@@ -65,7 +62,7 @@ initAfterLoad(() => {
     document.addEventListener("input:game3", onInput);
 
     // game specific
-    resetTimer = new Timer(RESET_TIMER_SECONDS, () => {
+    resetTimer = new Timer(configGlobal.resetTimerSeconds, () => {
         // timeout is up, navigate back to start
         document.querySelector("a.reset").click();
     });

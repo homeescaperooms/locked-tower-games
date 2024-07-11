@@ -1,9 +1,15 @@
+import { fileURLToPath } from "node:url";
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import cp from "vite-plugin-cp";
+
+const configFilePath = fileURLToPath(new URL("config.js", import.meta.url));
+const outDirName = "dist";
 
 export default defineConfig({
     base: "/tower/",
     build: {
+        outDir: outDirName,
         rollupOptions: {
             input: {
                 main: resolve(__dirname, "index.html"),
@@ -15,6 +21,17 @@ export default defineConfig({
                 gameEmotions: resolve(__dirname, "game/emotions.html"),
                 gameQuizWG: resolve(__dirname, "game/quiz_wg.html"),
             },
+            external: [configFilePath],
         },
     },
+    plugins: [
+        cp({
+            targets: [
+                {
+                    src: configFilePath,
+                    dest: outDirName,
+                },
+            ],
+        }),
+    ],
 });
