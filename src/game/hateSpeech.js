@@ -1,21 +1,14 @@
 import "../fonts.css";
 import "../lib/style.css";
 
+import { configGlobal, configHateSpeech } from "../../config.js";
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
 import { getDifficulty } from "../lib/difficulty.js";
 import { initAfterLoad } from "../lib/init.js";
 import { hideModal, showModal } from "../lib/meta/modal.js";
 import { Timer } from "../lib/timer/timer.js";
 
-/* config */
 const DIFFICULTY = getDifficulty();
-const HELP_TEXT = "hilfe für hate speech";
-const RESET_TIMER_SECONDS = 120;
-const SOLUTIONS = {
-    easy: [1, 2, 3, 4],
-    hard: [8, 7, 6, 5, 4, 3, 2, 1],
-};
-
 let helpModal;
 let currentTryInputs = [];
 let resetTimer;
@@ -37,7 +30,7 @@ function onInput({ detail }) {
             helpModal = null;
         } else {
             helpModal = showModal({
-                text: HELP_TEXT,
+                text: configHateSpeech.helpText,
             });
         }
     }
@@ -51,11 +44,11 @@ function onInput({ detail }) {
             if (currentTryInputs.includes(i)) return;
             currentTryInputs.push(i);
 
-            updateProgress(currentTryInputs, SOLUTIONS[DIFFICULTY]);
-            const correct = compareSolution(currentTryInputs, SOLUTIONS[DIFFICULTY]);
+            updateProgress(currentTryInputs, configHateSpeech.solutions[DIFFICULTY]);
+            const correct = compareSolution(currentTryInputs, configHateSpeech.solutions[DIFFICULTY]);
             if (correct) {
                 solveGame();
-            } else if (isInputFinished(currentTryInputs, SOLUTIONS[DIFFICULTY])) {
+            } else if (isInputFinished(currentTryInputs, configHateSpeech.solutions[DIFFICULTY])) {
                 resetGame();
             }
         }
@@ -120,9 +113,9 @@ initAfterLoad(() => {
     document.addEventListener("input:game1", onInput);
 
     // game specific
-    updateProgress(currentTryInputs, SOLUTIONS[DIFFICULTY]);
+    updateProgress(currentTryInputs, configHateSpeech.solutions[DIFFICULTY]);
 
-    resetTimer = new Timer(RESET_TIMER_SECONDS, () => {
+    resetTimer = new Timer(configGlobal.resetTimerSeconds, () => {
         // timeout is up, navigate back to start
         document.querySelector("a.reset").click();
     });

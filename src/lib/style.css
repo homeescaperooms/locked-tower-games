@@ -141,24 +141,19 @@ main.hate_speech .progress .indicator.filled {
 }
 
 /* unknown language */
-
 main.unknown_language article {
-    position: relative;
-}
-
-main.unknown_language article img.symbol {
-    position: absolute;
-    width: auto;
-}
-
-main.unknown_language .countdown {
-    height: 100%;
-    margin: auto;
-    text-align: center;
+    display: flex;
+    height: 0px;
+    justify-content: center;
+    padding-top: 1rem;
 }
 
 main.unknown_language .progress {
-    color: white;
+    color: black;
+}
+
+main.unknown_language video {
+    object-fit: cover;
 }
 
 /* emotions */
