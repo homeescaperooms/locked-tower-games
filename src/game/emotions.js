@@ -3,9 +3,12 @@ import "../lib/style.css";
 
 import { configEmotions, configGlobal } from "../../config.js";
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
+import { getDifficulty } from "../lib/difficulty.js";
 import { initAfterLoad } from "../lib/init.js";
 import { hideModal, showModal } from "../lib/meta/modal.js";
 import { Timer } from "../lib/timer/timer.js";
+
+const DIFFICULTY = getDifficulty();
 
 let helpModal;
 let resetTimer;
@@ -60,6 +63,17 @@ initAfterLoad(() => {
 
     // listen
     document.addEventListener("input:game3", onInput);
+
+    for (let i = 1; i <= 3; i++) {
+        // add video source child element
+        const video = document.querySelector(`video.video-${i}`);
+        const source = document.createElement("source");
+        source.src = import.meta.env.BASE_URL + `content/emotions/vid${i}_${DIFFICULTY}.mp4`;
+        source.type = "video/mp4";
+        console.log(source);
+        video.appendChild(source);
+        video.play();
+    }
 
     // game specific
     resetTimer = new Timer(configGlobal.resetTimerSeconds, () => {
