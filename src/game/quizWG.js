@@ -13,6 +13,7 @@ import { Answer, Game, Question, Round } from "../lib/teapot/types.js";
 import { Timer } from "../lib/timer/timer.js";
 
 const DIFFICULTY = getDifficulty();
+let game;
 
 const ROUNDS = [];
 let shuffledQuestionPool = configQuizWG.questionPool.sort(() => Math.random() - 0.5);
@@ -56,7 +57,7 @@ for (let i = 0; i < configQuizWG.roundAmount[DIFFICULTY]; i++) {
 }
 
 const onGameOver = () => {
-    document.querySelector(".question-container").innerHTML = `<p>${configQuizWG.gameOverText}</p>`;
+    document.querySelector(".question-container").innerHTML = `<p class="game-over">${configQuizWG.gameOverText}</p>`;
 
     document.querySelector(".answer-container").innerHTML = ``;
     document.querySelector("#timer")?.classList.add("disabled");
@@ -87,12 +88,14 @@ async function onInput({ detail }) {
 
     if (button === "buttonHelp") {
         if (helpModal) {
+            blockView(false);
             hideModal(helpModal);
             helpModal = null;
         } else {
             helpModal = showModal({
                 text: configQuizWG.helpText,
             });
+            blockView(true);
         }
     }
 
@@ -106,6 +109,16 @@ async function onInput({ detail }) {
         foundButton.classList.add("hover");
         await sleep(500);
         foundButton.click();
+    }
+}
+
+function blockView(doBlock) {
+    if (doBlock) {
+        document.querySelector("article").classList.add("blocked");
+        game.pauseTimer();
+    } else {
+        document.querySelector("article").classList.remove("blocked");
+        game.unpauseTimer();
     }
 }
 
@@ -152,5 +165,6 @@ initAfterLoad(() => {
     });
     resetTimer.start();
 
-    new Game(configQuizWG.lifes[DIFFICULTY], ROUNDS, solveGame, onGameOver).start();
+    game = new Game(configQuizWG.lifes[DIFFICULTY], ROUNDS, solveGame, onGameOver);
+    game.start();
 });

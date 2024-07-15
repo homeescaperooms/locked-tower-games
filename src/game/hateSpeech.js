@@ -2,7 +2,7 @@ import "../fonts.css";
 import "../lib/style.css";
 
 import { configGlobal, configHateSpeech } from "../../config.js";
-import { sleep } from "../helper.js";
+import { randomBetween, shuffle, sleep } from "../helper.js";
 import { colorOverwrite } from "../lib/color.js";
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
 import { getDifficulty, setupDifficultyListener } from "../lib/difficulty.js";
@@ -109,7 +109,15 @@ function isInputFinished(currentSolution, correctSolution) {
     return true;
 }
 
-initAfterLoad(() => {
+function addCommentElement(assetPath, scale, rot) {
+    const commentElement = document.createElement("img");
+    commentElement.src = import.meta.env.BASE_URL + assetPath;
+    commentElement.classList.add("comment");
+    commentElement.style.cssText = `--scale: ${scale}; --rot: ${rot}deg;`;
+    document.querySelector("article").appendChild(commentElement);
+}
+
+initAfterLoad(async () => {
     setupDifficultyListener();
     setupInputBackend();
 
@@ -133,6 +141,20 @@ initAfterLoad(() => {
     // game specific
     colorOverwrite(document.querySelector("main"), configHateSpeech.colorOverwrite);
     document.querySelector("h1").textContent = configHateSpeech.questionText;
+
+    // add comments
+    const commentAssets = shuffle(configHateSpeech.comments[DIFFICULTY]);
+    const assetNumber = commentAssets.length;
+    for (let i = 0; i < commentAssets.length; i++) {
+        const asset = commentAssets[i];
+
+        let maxWidth = document.querySelector("article").offsetWidth;
+        let scale = randomBetween(0.95, 1.05);
+        let rot = randomBetween(-4, 4);
+
+        addCommentElement(asset, scale, rot);
+        await sleep(200);
+    }
 
     updateProgress(currentTryInputs, configHateSpeech.solutions[DIFFICULTY]);
 

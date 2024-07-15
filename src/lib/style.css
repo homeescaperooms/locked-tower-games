@@ -163,6 +163,29 @@ main.solved video {
  */
 
 /* hate speech */
+main.hate_speech article {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 1rem;
+    padding: 0 10%;
+}
+
+main.hate_speech .comment {
+    animation: bounce-in 0.4s cubic-bezier(0.24, 0.09, 0.68, 1.61);
+    transform: scale(var(--scale)) rotate(var(--rot));
+    flex: 1 0 30%;
+    object-fit: contain;
+}
+
+@keyframes bounce-in {
+    0% {
+        transform: scale(0) rotate(var(--rot));
+    }
+    100% {
+        transform: scale(var(--scale)) rotate(var(--rot));
+    }
+}
 
 /* unknown language */
 main.unknown_language article {
@@ -221,7 +244,7 @@ main.quiz_wg #timer {
     font-size: 1.5rem;
 }
 main.quiz_wg #timer.paused {
-    color: var(--color-text-lighter);
+    opacity: 0.5;
 }
 main.quiz_wg #timer.disabled {
     color: var(--color-fg) !important;
@@ -234,6 +257,22 @@ main.quiz_wg #timer.disabled:after {
     position: absolute;
     left: 0;
     top: 0;
+}
+
+main.quiz_wg #timer.interrupted {
+    animation: blinking 2s infinite step-end;
+}
+
+@keyframes blinking {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0.5;
+    }
 }
 
 main.quiz_wg .life {
@@ -327,6 +366,18 @@ main.quiz_wg .button-content:after {
     font-weight: bold;
     color: var(--color-primary);
     text-shadow: 1px 1px 0 var(--color-primary-lighter), 2px 2px 0 var(--color-primary-lighter);
+}
+
+main.quiz_wg .game-over {
+    text-align: center;
+}
+
+main.quiz_wg article.blocked {
+    visibility: hidden;
+}
+
+main.quiz_wg article.blocked .status {
+    visibility: visible;
 }
 
 @keyframes shrink {

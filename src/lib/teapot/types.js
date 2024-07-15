@@ -27,6 +27,16 @@ export class Game {
         }
     }
 
+    pauseTimer() {
+        this.rounds[this.currentRound]?.endTimer();
+        document.querySelector("#timer")?.classList.add("interrupted");
+    }
+
+    unpauseTimer() {
+        this.rounds[this.currentRound]?.startTimer();
+        document.querySelector("#timer")?.classList.remove("interrupted");
+    }
+
     start() {
         let onFinish, onFail;
 

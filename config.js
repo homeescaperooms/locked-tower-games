@@ -7,9 +7,25 @@ export const configHateSpeech = {
     questionText: "frage 1",
     helpText: "hilfe für hate speech",
     gameOverText: "Das war leider falsch. Versuche es erneut!",
+    comments: {
+        easy: [
+            "/content/hate_speech/comment_01.png",
+            "/content/hate_speech/comment_02.png",
+            "/content/hate_speech/comment_01.png",
+            "/content/hate_speech/comment_02.png",
+        ],
+        hard: [
+            "/content/hate_speech/comment_01.png",
+            "/content/hate_speech/comment_02.png",
+            "/content/hate_speech/comment_01.png",
+            "/content/hate_speech/comment_02.png",
+            "/content/hate_speech/comment_01.png",
+            "/content/hate_speech/comment_02.png",
+        ],
+    },
     solutions: {
-        easy: [1, 2, 3, 4],
-        hard: [6, 5, 4, 3, 2, 1],
+        easy: [3, 1, 5, 2],
+        hard: [3, 6, 1, 4, 2, 5],
     },
 };
 
@@ -17,23 +33,17 @@ export const configUnknownLanguage = {
     questionText: "frage 2",
     helpText: "hilfe für unknown language",
     gameOverText: "Das war leider falsch. Versuche es erneut!",
-    colorOverwrite: {
-        "--color-primary": "var(--color-aok-green-lighter)",
-        "--color-text-inverted": "orange",
-    },
     buttonMap: {
-        button1: "A",
-        button2: "B",
-        button3: "C",
-        button4: "D",
-        button5: "E",
-        button6: "F",
-        button7: "G",
-        button8: "H",
+        button1: "L",
+        button2: "R",
+        button3: "I",
+        button4: "U",
+        button5: "F",
+        button6: "E",
     },
     solutions: {
         easy: ["A", "B", "C", "D"],
-        hard: ["A", "B", "C", "D", "E", "F", "G", "H"],
+        hard: ["A", "B", "C", "D", "E", "F"],
     },
 };
 
