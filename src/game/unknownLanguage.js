@@ -2,6 +2,7 @@ import "../fonts.css";
 import "../lib/style.css";
 
 import { configGlobal, configUnknownLanguage } from "../../config.js";
+import { sleep } from "../helper.js";
 import { colorOverwrite } from "../lib/color.js";
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
 import { getDifficulty, setupDifficultyListener } from "../lib/difficulty.js";
@@ -14,10 +15,14 @@ const DIFFICULTY = getDifficulty();
 let helpModal;
 let currentTryInputs = [];
 let resetTimer;
+let blockAllInputs = false;
 
-function onInput({ detail }) {
+async function onInput({ detail }) {
     const button = detail.button;
     console.log("btn", button);
+
+    // blocking inputs
+    if (blockAllInputs) return;
 
     // on ANY input, reset timer
     if (resetTimer) resetTimer.reset();
@@ -40,14 +45,14 @@ function onInput({ detail }) {
     // Disallow other key events when help is shown
     if (helpModal) return;
 
-    const afterInput = () => {
+    const afterInput = async () => {
         console.log(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY]);
         updateProgress(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY]);
         const correct = compareSolution(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY]);
         if (correct) {
             solveGame();
         } else if (isInputFinished(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY])) {
-            resetGame();
+            await resetGame();
         }
     };
 
@@ -55,15 +60,25 @@ function onInput({ detail }) {
     const letter = configUnknownLanguage.buttonMap[button];
     if (letter) {
         currentTryInputs.push(letter);
-        afterInput();
+        await afterInput();
     } else {
         console.error(`Pushed unknown button ${button}, which does not have a letter.`);
     }
 }
 
-function resetGame() {
+function setFeedback(text) {
+    const el = document.querySelector(".feedback");
+    el.textContent = text.length === 0 ? "&nbsp;" : text;
+    el.style.opacity = text.length > 0 ? 1 : 0;
+}
+
+async function resetGame() {
+    blockAllInputs = true;
+    setFeedback(configUnknownLanguage.gameOverText);
+    await sleep(configGlobal.autoRestartSeconds * 1000);
     // reload page
     window.location.reload();
+    blockAllInputs = false;
 }
 
 function solveGame() {

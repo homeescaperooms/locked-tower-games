@@ -1,10 +1,12 @@
 export const configGlobal = {
     resetTimerSeconds: 120, // how many seconds of inacitivty resets the game to the start
+    autoRestartSeconds: 2, // how many seconds to wait after a wrong answer before restarting the game
 };
 
 export const configHateSpeech = {
     questionText: "frage 1",
     helpText: "hilfe für hate speech",
+    gameOverText: "Das war leider falsch. Versuche es erneut!",
     solutions: {
         easy: [1, 2, 3, 4],
         hard: [6, 5, 4, 3, 2, 1],
@@ -14,6 +16,7 @@ export const configHateSpeech = {
 export const configUnknownLanguage = {
     questionText: "frage 2",
     helpText: "hilfe für unknown language",
+    gameOverText: "Das war leider falsch. Versuche es erneut!",
     colorOverwrite: {
         "--color-primary": "var(--color-aok-green-lighter)",
         "--color-text-inverted": "orange",
