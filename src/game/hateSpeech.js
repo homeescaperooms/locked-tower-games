@@ -88,7 +88,7 @@ function updateProgress(currentSolution, correctSolution) {
         const isFilledOut = i < currentSolution.length;
         let content = null;
         if (isFilledOut) content = currentSolution[i];
-        innerString += `<div class="indicator ${isFilledOut ? "filled" : ""}">${isFilledOut ? "<span>" + content + "</span>" : ""}</div>`;
+        innerString += `<div class="indicator ${isFilledOut ? "filled" : ""}">${isFilledOut ? "<span>⬤</span>" : ""}</div>`;
     }
 
     document.querySelector(".progress").innerHTML = innerString;
