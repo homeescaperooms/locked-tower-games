@@ -23,6 +23,7 @@
 
         <script type="module">
             import { setupInputBackend, spoofInputBackend } from "./src/lib/control/control.js";
+            import { setupDifficultyListener } from "./src/lib/difficulty.js";
             import { initAfterLoad } from "./src/lib/init.js";
             import { infoButton } from "./src/lib/meta/infoButton.js";
             import { showModal } from "./src/lib/meta/modal.js";
@@ -42,6 +43,7 @@
             }
 
             initAfterLoad(() => {
+                setupDifficultyListener();
                 setupInputBackend();
 
                 const urlParams = new URLSearchParams(window.location.search);

@@ -14,7 +14,7 @@
             import { initAfterLoad } from "./src/lib/init.js";
             import "./src/fonts.css";
             import "./src/lib/style.css";
-            import { getDifficulty } from "./src/lib/difficulty.js";
+            import { getDifficulty, setupDifficultyListener } from "./src/lib/difficulty.js";
 
             function getAssetName(gameName) {
                 if (gameName === "hate_speech") {
@@ -30,6 +30,8 @@
             }
 
             initAfterLoad(() => {
+                setupDifficultyListener();
+
                 const urlParams = new URLSearchParams(window.location.search);
                 const gameId = urlParams.get("game");
 

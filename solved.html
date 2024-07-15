@@ -16,8 +16,11 @@
             import { initAfterLoad } from "./src/lib/init.js";
             import "./src/fonts.css";
             import "./src/lib/style.css";
+            import { setupDifficultyListener } from "./src/lib/difficulty.js";
 
             initAfterLoad(() => {
+                setupDifficultyListener();
+
                 const urlParams = new URLSearchParams(window.location.search);
                 const gameId = urlParams.get("game");
 

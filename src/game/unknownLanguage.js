@@ -4,7 +4,7 @@ import "../lib/style.css";
 import { configGlobal, configUnknownLanguage } from "../../config.js";
 import { colorOverwrite } from "../lib/color.js";
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
-import { getDifficulty } from "../lib/difficulty.js";
+import { getDifficulty, setupDifficultyListener } from "../lib/difficulty.js";
 import { initAfterLoad } from "../lib/init.js";
 import { hideModal, showModal } from "../lib/meta/modal.js";
 import { Timer } from "../lib/timer/timer.js";
@@ -99,6 +99,7 @@ function isInputFinished(currentSolution, correctSolution) {
 }
 
 initAfterLoad(() => {
+    setupDifficultyListener();
     setupInputBackend();
 
     // spoof input

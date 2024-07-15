@@ -18,7 +18,7 @@
         <script type="module">
             import { setupInputBackend, spoofInputBackend } from "./src/lib/control/control.js";
             import { initAfterLoad } from "./src/lib/init.js";
-            import { getDifficulty, setDifficulty } from "./src/lib/difficulty.js";
+            import { getDifficulty, setDifficulty, setupDifficultyListener } from "./src/lib/difficulty.js";
             import "./src/fonts.css";
             import "./src/lib/style.css";
 
@@ -45,6 +45,7 @@
             }
 
             initAfterLoad(() => {
+                setupDifficultyListener();
                 setupInputBackend();
 
                 const difficulty = getDifficulty();

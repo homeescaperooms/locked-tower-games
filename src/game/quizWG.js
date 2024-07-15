@@ -6,7 +6,7 @@ import { configGlobal, configQuizWG } from "../../config.js";
 import { sleep } from "../helper.js";
 import { colorOverwrite } from "../lib/color.js";
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
-import { getDifficulty } from "../lib/difficulty.js";
+import { getDifficulty, setupDifficultyListener } from "../lib/difficulty.js";
 import { initAfterLoad } from "../lib/init.js";
 import { hideModal, showModal } from "../lib/meta/modal.js";
 import { Answer, Game, Question, Round } from "../lib/teapot/types.js";
@@ -119,6 +119,7 @@ function solveGame() {
 }
 
 initAfterLoad(() => {
+    setupDifficultyListener();
     setupInputBackend();
 
     // spoof input

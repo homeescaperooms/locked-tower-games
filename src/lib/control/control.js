@@ -125,6 +125,8 @@ const INPUTS = Object.freeze({
 
 export function setupInputBackend() {
     uibuilder.onChange("msg", (msg) => {
+        if (msg?.topic === "difficulty") return -1;
+
         console.log("Got ui builder input. msg:", msg);
 
         const data = msg.payload.hasOwnProperty("in") ? msg.payload.in : msg.payload;
