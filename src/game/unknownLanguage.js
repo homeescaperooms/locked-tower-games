@@ -45,24 +45,22 @@ async function onInput({ detail }) {
     // Disallow other key events when help is shown
     if (helpModal) return;
 
-    const afterInput = async () => {
-        console.log(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY]);
-        updateProgress(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY]);
-        const correct = compareSolution(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY]);
-        if (correct) {
-            solveGame();
-        } else if (isInputFinished(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY])) {
-            await resetGame();
-        }
-    };
+    const afterInput = async () => {};
 
-    // can abstract each button into this generic function call
-    const letter = configUnknownLanguage.buttonMap[button];
-    if (letter) {
-        currentTryInputs.push(letter);
-        await afterInput();
-    } else {
-        console.error(`Pushed unknown button ${button}, which does not have a letter.`);
+    // Number buttons input
+    for (let i = 1; i < 7; i++) {
+        if (button === "button" + i) {
+            currentTryInputs.push(i);
+
+            console.log(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY]);
+            updateProgress(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY]);
+            const correct = compareSolution(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY]);
+            if (correct) {
+                solveGame();
+            } else if (isInputFinished(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY])) {
+                await resetGame();
+            }
+        }
     }
 }
 

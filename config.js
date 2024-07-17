@@ -38,23 +38,15 @@ export const configHateSpeech = {
 };
 
 export const configUnknownLanguage = {
-    questionText: "frage 2",
+    questionText: "Wie lautet der geheime Code, um die Tür in Noahs Computerspiel zu öffnen?",
     helpText: {
-        easy: "",
-        hard: "",
+        easy: "Drücke die vier Schalter in der richtigen Reihenfolge. Die Pinne außerhalb der Kreise helfen bei der Zuordnung der Zahlen auf das jeweilige Symbol.",
+        hard: "Drücke die sechs Schalter in der richtigen Reihenfolge. Die Pinne außerhalb der Kreise helfen bei der Zuordnung der Zahlen auf das jeweilige Symbol.",
     },
     gameOverText: "Das war leider falsch. Versuche es erneut!",
-    buttonMap: {
-        button1: "L",
-        button2: "R",
-        button3: "I",
-        button4: "U",
-        button5: "F",
-        button6: "E",
-    },
     solutions: {
-        easy: ["A", "B", "C", "D"],
-        hard: ["A", "B", "C", "D", "E", "F"],
+        easy: [1, 5, 6, 3],
+        hard: [8, 4, 7, 2, 6, 3],
     },
 };
 
