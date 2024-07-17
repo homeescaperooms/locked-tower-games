@@ -47,7 +47,7 @@ for (const question of configQuizWG.questionPool) {
                 .endButtonSet(),
 
             {
-                timer: 30,
+                timer: question.timer[DIFFICULTY],
             }
         );
         ROUNDS.push(r);
@@ -67,10 +67,14 @@ const onGameOver = () => {
 let helpModal;
 let resetTimer;
 let anyButtonRestarts = false;
+let blockAllInputs = false;
 
 async function onInput({ detail }) {
     const button = detail.button;
     console.log("btn", button);
+
+    // blocking inputs
+    if (blockAllInputs) return;
 
     // on ANY input, reset timer
     if (resetTimer) resetTimer.reset();
@@ -104,16 +108,40 @@ async function onInput({ detail }) {
     const foundButton = document.querySelector(`button[data-button-event-id="${button}"]`);
     console.log(foundButton);
     if (foundButton) {
+        blockAllInputs = true;
+        game.pauseTimer();
+
+        document.querySelectorAll("button").forEach((b) => b.parentElement.classList.add("disabled"));
+        foundButton.parentElement.classList.remove("disabled");
         foundButton.classList.add("hover");
-        await sleep(500);
+        await sleep(700);
+
+        const willBeCorrect = foundButton.dataset.correct === "true";
+
+        if (willBeCorrect) {
+            foundButton.parentElement.classList.add("click-correct");
+            await sleep(200);
+        } else {
+            foundButton.parentElement.classList.add("click-incorrect");
+            await sleep(700);
+
+            // find the right button
+            const correctButton = document.querySelector(`button[data-correct="true"]`);
+            correctButton.parentElement.classList.add("click-hint-correct");
+            correctButton.parentElement.classList.remove("disabled");
+        }
+
+        await sleep(1500);
         foundButton.click();
+        blockAllInputs = false;
+        game.unpauseTimer();
     }
 }
 
 function blockView(doBlock) {
     if (doBlock) {
         document.querySelector("article").classList.add("blocked");
-        game.pauseTimer();
+        game.pauseTimer(true);
     } else {
         document.querySelector("article").classList.remove("blocked");
         game.unpauseTimer();

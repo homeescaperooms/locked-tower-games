@@ -11,6 +11,46 @@ export class Game {
 
         this.onWon = onWon;
         this.onGameOver = onGameOver;
+
+        this.timerIv = null;
+        this.timer = 0;
+
+        this.currentRound = null;
+    }
+
+    setupTimer(time) {
+        console.log("setting up new timer w", time);
+        if (this.timerIv !== null) clearInterval(this.timerIv);
+        this.timer = time;
+
+        const container = document.querySelector("#timer");
+        if (!container) throw Error("Couldn't find timer container.");
+
+        const renderTimer = () => {
+            let minutes = Math.floor(this.timer / 60);
+            let seconds = this.timer - minutes * 60;
+            container.innerHTML = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        };
+
+        this.timerIv = setInterval(() => {
+            console.log("tick", Math.random());
+            if (container.classList.contains("paused") || container.classList.contains("interrupted") || container.classList.contains("disabled")) {
+                // do nothing when paused
+            } else {
+                this.timer--;
+            }
+
+            renderTimer();
+
+            if (this.timer < 0) {
+                console.log("clearing since timer is < 0", this.timer);
+                this.currentRound?.fail();
+                clearInterval(this.timerIv);
+            }
+        }, 1000);
+
+        renderTimer();
+        console.log(this.timerIv, this.timer);
     }
 
     renderLifes() {
@@ -37,14 +77,15 @@ export class Game {
         container.innerHTML = `<span>${this.wonRounds}</span>&nbsp;/&nbsp;<span>${this.roundsToWin}</span> Fragen`;
     }
 
-    pauseTimer() {
-        this.roundPool[this.roundIndex]?.endTimer();
-        document.querySelector("#timer")?.classList.add("interrupted");
+    pauseTimer(doBlinking) {
+        document.querySelector("#timer")?.classList.add("paused");
+        if (doBlinking) {
+            document.querySelector("#timer")?.classList.add("interrupted");
+        }
     }
 
     unpauseTimer() {
-        this.roundPool[this.roundIndex]?.startTimer();
-        document.querySelector("#timer")?.classList.remove("interrupted");
+        document.querySelector("#timer")?.classList.remove("paused", "interrupted");
     }
 
     getNextRound() {
@@ -67,7 +108,9 @@ export class Game {
 
             if (this.wonRounds < this.roundsToWin) {
                 const round = this.getNextRound();
+                this.currentRound = round;
                 round._applyCallbacks(onFinish, onFail);
+                this.setupTimer(round.meta.timer);
                 round.start();
             } else {
                 this.onWon();
@@ -75,13 +118,16 @@ export class Game {
         };
 
         onFail = () => {
+            console.log("triggered onFail");
             this.lifes--;
             this.renderLifes();
             this.renderProgress();
 
             if (this.lifes > 0) {
                 const round = this.getNextRound();
+                this.currentRound = round;
                 round._applyCallbacks(onFinish, onFail);
+                this.setupTimer(round.meta.timer || 15);
                 round.start();
             } else {
                 this.onGameOver();
@@ -91,7 +137,10 @@ export class Game {
         this.renderProgress();
         this.renderLifes();
         const round = this.getNextRound();
+        this.currentRound = round;
         round._applyCallbacks(onFinish, onFail);
+
+        this.setupTimer(round.meta.timer);
         round.start();
     }
 }
@@ -102,10 +151,6 @@ export class Round {
         this.answer = answer;
         this.meta = meta;
 
-        this.timed = meta.timer && meta.timer > 0;
-        this.timer = meta.timer;
-        this.timerIv = null;
-
         this.onFinish;
         this.onFail;
     }
@@ -115,51 +160,7 @@ export class Round {
         this.onFail = onFail;
     }
 
-    startTimer() {
-        const container = document.querySelector("#timer");
-        if (!container) throw Error("Couldn't find timer container.");
-
-        const renderTimer = () => {
-            let minutes = Math.floor(this.timer / 60);
-            let seconds = this.timer - minutes * 60;
-            container.innerHTML = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-        };
-
-        container.classList.remove("paused", "disabled");
-        renderTimer();
-
-        this.timerIv = setInterval(() => {
-            if (container.classList.contains("paused")) {
-                clearInterval(this.timerIv);
-                this.timerIv = null;
-            }
-
-            this.timer--;
-            renderTimer();
-
-            if (this.timer < 0) {
-                this.fail();
-            }
-        }, 1000);
-    }
-
-    endTimer() {
-        clearInterval(this.timerIv);
-        this.timerIv = null;
-        const container = document.querySelector("#timer");
-        if (container) container.classList.add("paused");
-    }
-
     start() {
-        if (this.timed) {
-            this.startTimer();
-        } else {
-            const container = document.querySelector("#timer");
-            if (container) {
-                container.classList.add("disabled");
-            }
-        }
-
         const questionContainer = document.querySelector(".question-container");
         if (questionContainer) appendChildren(questionContainer, this.question.markup);
 
@@ -176,23 +177,7 @@ export class Round {
         });
     }
 
-    restart() {
-        const questionContainer = document.querySelector(".question-container");
-        if (questionContainer) questionContainer.innerHTML = "";
-
-        const answerContainer = document.querySelector(".answer-container");
-        if (answerContainer) answerContainer.innerHTML = "";
-        // replace container with itself to remove event listener
-        answerContainer.replaceWith(answerContainer.cloneNode(true));
-
-        this.timer = this.meta.timer;
-
-        this.start();
-    }
-
     _cleanup() {
-        this.endTimer();
-
         const questionContainer = document.querySelector(".question-container");
         if (questionContainer) questionContainer.innerHTML = "";
 
