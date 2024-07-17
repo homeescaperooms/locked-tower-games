@@ -93,7 +93,7 @@ async function onInput({ detail }) {
             helpModal = null;
         } else {
             helpModal = showModal({
-                text: configQuizWG.helpText,
+                text: configQuizWG.helpText[DIFFICULTY],
             });
             blockView(true);
         }

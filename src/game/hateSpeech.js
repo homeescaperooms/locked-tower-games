@@ -36,7 +36,7 @@ async function onInput({ detail }) {
             helpModal = null;
         } else {
             helpModal = showModal({
-                text: configHateSpeech.helpText,
+                text: configHateSpeech.helpText[DIFFICULTY],
             });
         }
     }
@@ -112,9 +112,13 @@ function isInputFinished(currentSolution, correctSolution) {
 function addCommentElement(assetPath, scale, rot) {
     const commentElement = document.createElement("img");
     commentElement.src = import.meta.env.BASE_URL + assetPath;
-    commentElement.classList.add("comment");
+    commentElement.classList.add("comment", "hidden");
     commentElement.style.cssText = `--scale: ${scale}; --rot: ${rot}deg;`;
-    document.querySelector("article").appendChild(commentElement);
+
+    const container = document.querySelector("article");
+    container.appendChild(commentElement);
+
+    return commentElement;
 }
 
 initAfterLoad(async () => {
@@ -143,20 +147,29 @@ initAfterLoad(async () => {
     document.querySelector("h1").textContent = configHateSpeech.questionText;
 
     // add comments
+    const container = document.querySelector("article");
     const commentAssets = shuffle(configHateSpeech.comments[DIFFICULTY]);
     const assetNumber = commentAssets.length;
-    for (let i = 0; i < commentAssets.length; i++) {
+
+    const commentElements = [];
+    for (let i = 0; i < assetNumber; i++) {
         const asset = commentAssets[i];
 
-        let maxWidth = document.querySelector("article").offsetWidth;
         let scale = randomBetween(0.95, 1.05);
         let rot = randomBetween(-4, 4);
 
-        addCommentElement(asset, scale, rot);
-        await sleep(200);
+        // add real image (to end)
+        const el = addCommentElement(asset, scale, rot);
+        commentElements.push(el);
     }
 
     updateProgress(currentTryInputs, configHateSpeech.solutions[DIFFICULTY]);
+
+    // remove hidden
+    for (const el of commentElements) {
+        el.classList.remove("hidden");
+        await sleep(200);
+    }
 
     resetTimer = new Timer(configGlobal.resetTimerSeconds, () => {
         // timeout is up, navigate back to start

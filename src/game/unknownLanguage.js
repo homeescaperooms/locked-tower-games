@@ -37,7 +37,7 @@ async function onInput({ detail }) {
             helpModal = null;
         } else {
             helpModal = showModal({
-                text: configUnknownLanguage.helpText,
+                text: configUnknownLanguage.helpText[DIFFICULTY],
             });
         }
     }

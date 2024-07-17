@@ -31,7 +31,7 @@ function onInput({ detail }) {
             helpModal = null;
         } else {
             helpModal = showModal({
-                text: configEmotions.helpText,
+                text: configEmotions.helpText[DIFFICULTY],
             });
         }
     }

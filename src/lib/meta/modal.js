@@ -5,6 +5,7 @@ export function showModal(options) {
         allowEscapeKey: false,
         showConfirmButton: false,
         allowOutsideClick: false,
+        title: "Hinweis",
         ...options,
         stopKeydownPropagation: false,
         heightAuto: false,

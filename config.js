@@ -1,11 +1,19 @@
 export const configGlobal = {
-    resetTimerSeconds: 120, // how many seconds of inacitivty resets the game to the start
-    autoRestartSeconds: 2, // how many seconds to wait after a wrong answer before restarting the game
+    // how many seconds of inacitivty resets the game to the start
+    resetTimerSeconds: 120,
+
+    // how many seconds to wait after a wrong answer before restarting the game
+    // in game 3 you can't lose, so this is ignored
+    // in game 4, the player needs to manually press a button to restart, so this is ignored
+    autoRestartSeconds: 2,
 };
 
 export const configHateSpeech = {
-    questionText: "frage 1",
-    helpText: "hilfe für hate speech",
+    questionText: "In welcher zeitlichen Reihenfolge wurden die Kommentare gegen Jola gepostet?",
+    helpText: {
+        easy: "Drücke die vier zugehörigen Schalter zu den Profilen in der zeitlichen Reihenfolge des Posts. Jeweils zwei Kommentare wurden am gleichen Tag gepostet, dabei referenziert die eine Person jeweils die andere.",
+        hard: "Drücke die sechs zugehörigen Schalter zu den Profilen in der zeitlichen Reihenfolge des Posts. Jeweils zwei Kommentare wurden am gleichen Tag gepostet, dabei referenziert die eine Person jeweils die andere.",
+    },
     gameOverText: "Das war leider falsch. Versuche es erneut!",
     comments: {
         easy: [
@@ -31,7 +39,10 @@ export const configHateSpeech = {
 
 export const configUnknownLanguage = {
     questionText: "frage 2",
-    helpText: "hilfe für unknown language",
+    helpText: {
+        easy: "",
+        hard: "",
+    },
     gameOverText: "Das war leider falsch. Versuche es erneut!",
     buttonMap: {
         button1: "L",
@@ -49,12 +60,18 @@ export const configUnknownLanguage = {
 
 export const configEmotions = {
     questionText: "frage 3",
-    helpText: "hilfe für emotions",
+    helpText: {
+        easy: "",
+        hard: "",
+    },
 };
 
 export const configQuizWG = {
     questionText: "frage 4",
-    helpText: "hilfe für quiz wg",
+    helpText: {
+        easy: "",
+        hard: "",
+    },
     gameOverText: `Du hast leider verloren. Drücke einen beliebigen Knopf, um neu zu starten.`,
     lifes: {
         easy: 5,
