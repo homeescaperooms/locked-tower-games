@@ -51,15 +51,15 @@ export const configUnknownLanguage = {
 };
 
 export const configEmotions = {
-    questionText: "frage 3",
+    questionText: "Welche drei Emotionen durchlebt Noah in den Clips?",
     helpText: {
-        easy: "",
-        hard: "",
+        easy: "Stelle die drei Regler auf die richtige Position (von links nach rechts), indem du die entsprechende Emotion im jeweiligen Video erkennst.",
+        hard: "Stelle die drei Regler auf die richtige Position (von links nach rechts), indem du die entsprechende Emotion im jeweiligen Video erkennst.",
     },
 };
 
 export const configQuizWG = {
-    questionText: "frage 4",
+    questionText: "Wie beantwortet Noah die Fragen in seinem Schulprojekt korrekt?",
     helpText: {
         easy: "",
         hard: "",
