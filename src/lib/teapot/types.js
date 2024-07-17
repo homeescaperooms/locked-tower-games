@@ -1,10 +1,13 @@
 import { appendChildren } from "../../helper.js";
 
 export class Game {
-    constructor(lifes, rounds, onWon, onGameOver) {
-        this.rounds = rounds;
+    constructor(lifes, rounds, roundsToWin, onWon, onGameOver) {
+        this.roundPool = rounds.sort(() => Math.random() - 0.5);
+        this.roundIndex = 0;
+        this.roundsToWin = roundsToWin;
+        this.wonRounds = 0;
+
         this.lifes = lifes;
-        this.currentRound = 0;
 
         this.onWon = onWon;
         this.onGameOver = onGameOver;
@@ -27,24 +30,43 @@ export class Game {
         }
     }
 
+    renderProgress() {
+        const container = document.querySelector("#progress");
+        if (!container) throw Error("Couldn't find progress container.");
+
+        container.innerHTML = `<span>${this.wonRounds}</span>&nbsp;/&nbsp;<span>${this.roundsToWin}</span> Fragen`;
+    }
+
     pauseTimer() {
-        this.rounds[this.currentRound]?.endTimer();
+        this.roundPool[this.roundIndex]?.endTimer();
         document.querySelector("#timer")?.classList.add("interrupted");
     }
 
     unpauseTimer() {
-        this.rounds[this.currentRound]?.startTimer();
+        this.roundPool[this.roundIndex]?.startTimer();
         document.querySelector("#timer")?.classList.remove("interrupted");
+    }
+
+    getNextRound() {
+        const round = this.roundPool[this.roundIndex];
+        this.roundIndex++;
+        if (this.roundIndex > this.roundPool.length) {
+            console.log("No more rounds in round pool.");
+            this.roundIndex = 0;
+        }
+
+        return round;
     }
 
     start() {
         let onFinish, onFail;
 
         onFinish = () => {
-            this.currentRound++;
+            this.wonRounds++;
+            this.renderProgress();
 
-            if (this.currentRound < this.rounds.length) {
-                const round = this.rounds[this.currentRound];
+            if (this.wonRounds < this.roundsToWin) {
+                const round = this.getNextRound();
                 round._applyCallbacks(onFinish, onFail);
                 round.start();
             } else {
@@ -55,18 +77,20 @@ export class Game {
         onFail = () => {
             this.lifes--;
             this.renderLifes();
+            this.renderProgress();
 
             if (this.lifes > 0) {
-                const round = this.rounds[this.currentRound];
+                const round = this.getNextRound();
                 round._applyCallbacks(onFinish, onFail);
-                round.restart();
+                round.start();
             } else {
                 this.onGameOver();
             }
         };
 
+        this.renderProgress();
         this.renderLifes();
-        const round = this.rounds[this.currentRound];
+        const round = this.getNextRound();
         round._applyCallbacks(onFinish, onFail);
         round.start();
     }
@@ -166,7 +190,7 @@ export class Round {
         this.start();
     }
 
-    finish() {
+    _cleanup() {
         this.endTimer();
 
         const questionContainer = document.querySelector(".question-container");
@@ -176,12 +200,15 @@ export class Round {
         if (answerContainer) answerContainer.innerHTML = "";
         // replace container with itself to remove event listener
         answerContainer.replaceWith(answerContainer.cloneNode(true));
+    }
 
+    finish() {
+        this._cleanup();
         this.onFinish();
     }
 
     fail() {
-        this.endTimer();
+        this._cleanup();
         this.onFail();
     }
 }

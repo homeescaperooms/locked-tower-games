@@ -255,7 +255,12 @@ main.quiz_wg .status {
 main.quiz_wg #lifes {
     display: flex;
     gap: 0.25rem;
+    flex: 1;
     filter: invert(25%) sepia(11%) saturate(4724%) hue-rotate(119deg) brightness(101%) contrast(101%);
+}
+
+main.quiz_wg #progress {
+    flex: 1;
 }
 
 main.quiz_wg #timer {
@@ -312,6 +317,7 @@ main.quiz_wg .question-container .text-content {
 main.quiz_wg h2 {
     margin: 0;
     text-align: center;
+    padding: 0 2rem;
 }
 
 main.quiz_wg .question-container {

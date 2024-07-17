@@ -16,9 +16,7 @@ const DIFFICULTY = getDifficulty();
 let game;
 
 const ROUNDS = [];
-let shuffledQuestionPool = configQuizWG.questionPool.sort(() => Math.random() - 0.5);
-for (let i = 0; i < configQuizWG.roundAmount[DIFFICULTY]; i++) {
-    let question = shuffledQuestionPool[i];
+for (const question of configQuizWG.questionPool) {
     if (question.type === "text") {
         let r = new Round(
             new Question().addStaticText(question.question),
@@ -165,6 +163,6 @@ initAfterLoad(() => {
     });
     resetTimer.start();
 
-    game = new Game(configQuizWG.lifes[DIFFICULTY], ROUNDS, solveGame, onGameOver);
+    game = new Game(configQuizWG.lifes[DIFFICULTY], ROUNDS, configQuizWG.roundAmount[DIFFICULTY], solveGame, onGameOver);
     game.start();
 });
