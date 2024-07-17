@@ -226,10 +226,10 @@ export const configQuizWG = {
         {
             question: "Von welcher dieser Lebensmittelgruppen, sollen wir laut Planetary Health Diet pro Tag am meisten zu uns nehmen?",
             answerOptions: [
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_true.png",
-                "/content/quiz_wg/placeholder_false.png",
+                "/content/quiz_wg/food_groups/Fleischprodukte.png",
+                "/content/quiz_wg/food_groups/Milchprodukte.png",
+                "/content/quiz_wg/food_groups/Obst-Gemuese_Richtig.png",
+                "/content/quiz_wg/food_groups/Nuesse.png",
             ],
             correct: 3,
             type: "image",
@@ -239,23 +239,10 @@ export const configQuizWG = {
         {
             question: "Welches dieser Nahrungsmittel kommt ursprünglich aus Südamerika?",
             answerOptions: [
-                "/content/quiz_wg/placeholder_true.png",
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_false.png",
-            ],
-            correct: 1,
-            type: "image",
-            timer: { easy: 30, hard: 15 },
-        },
-
-        {
-            question: "Welches Bundesland ist dies?",
-            answerOptions: [
-                "/content/quiz_wg/placeholder_true.png",
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_false.png",
+                "/content/quiz_wg/food_south_africa/Kartoffel_Richtig.png",
+                "/content/quiz_wg/food_south_africa/Zuckerruebe.png",
+                "/content/quiz_wg/food_south_africa/Haselnuss.png",
+                "/content/quiz_wg/food_south_africa/Apfel.png",
             ],
             correct: 1,
             type: "image",
@@ -265,10 +252,10 @@ export const configQuizWG = {
         {
             question: "Welches dieser 4 Icons gibt es nicht?",
             answerOptions: [
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_true.png",
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_false.png",
+                "/content/quiz_wg/social_media_icons/Icon_Instagram.png",
+                "/content/quiz_wg/social_media_icons/Icon_FAKE.png",
+                "/content/quiz_wg/social_media_icons/Icon_TikTok.png",
+                "/content/quiz_wg/social_media_icons/Icon_YouTube.png",
             ],
             correct: 2,
             type: "image",
@@ -278,10 +265,10 @@ export const configQuizWG = {
         {
             question: "Wieviel Würfelzucker sind in einem klassischen Energy Drink?",
             answerOptions: [
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_true.png",
+                "/content/quiz_wg/sugar/5g.png",
+                "/content/quiz_wg/sugar/10g.png",
+                "/content/quiz_wg/sugar/30g.png",
+                "/content/quiz_wg/sugar/60g_Richtig.png",
             ],
             correct: 4,
             type: "image",
@@ -291,10 +278,10 @@ export const configQuizWG = {
         {
             question: "Welches Foto ist echt und nicht von einer KI generiert?",
             answerOptions: [
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_true.png",
-                "/content/quiz_wg/placeholder_false.png",
+                "/content/quiz_wg/picture_ai/Barista-KI.png",
+                "/content/quiz_wg/picture_ai/Cafe-KI.png",
+                "/content/quiz_wg/picture_ai/Toertchen-Verkauf_Richtig.png",
+                "/content/quiz_wg/picture_ai/Kuchen-Display-KI.png",
             ],
             correct: 3,
             type: "image",
@@ -304,10 +291,10 @@ export const configQuizWG = {
         {
             question: "Welches Bild wurde nachbearbeitet?",
             answerOptions: [
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_true.png",
-                "/content/quiz_wg/placeholder_false.png",
-                "/content/quiz_wg/placeholder_false.png",
+                "/content/quiz_wg/picture_retouched/Gaense.png",
+                "/content/quiz_wg/picture_retouched/Nebel_Richtig.png",
+                "/content/quiz_wg/picture_retouched/See.png",
+                "/content/quiz_wg/picture_retouched/Wald.png",
             ],
             correct: 2,
             type: "image",

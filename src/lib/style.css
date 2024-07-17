@@ -386,6 +386,10 @@ main.quiz_wg .button-content .text-content {
     width: 100%;
 }
 
+main.quiz_wg .button-content img {
+    padding-left: 0.6rem;
+}
+
 main.quiz_wg .button-content:after {
     content: attr(data-label);
     display: inline-flex;
