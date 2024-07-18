@@ -48,7 +48,7 @@ async function onInput({ detail }) {
     const afterInput = async () => {};
 
     // Number buttons input
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < 9; i++) {
         if (button === "button" + i) {
             currentTryInputs.push(i);
 
