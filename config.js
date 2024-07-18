@@ -61,8 +61,8 @@ export const configEmotions = {
 export const configQuizWG = {
     questionText: "Wie beantwortet Noah die Fragen in seinem Schulprojekt korrekt?",
     helpText: {
-        easy: "",
-        hard: "",
+        easy: "Beachte den Countdown für die einzelnen Fragen und die Anzahl an möglichen Fehlversuchen (grünes Herz).",
+        hard: "Beachte den Countdown für die einzelnen Fragen und die Anzahl an möglichen Fehlversuchen (grünes Herz).",
     },
     gameOverText: `Du hast leider verloren. Drücke einen beliebigen Knopf, um neu zu starten.`,
     lifes: {
