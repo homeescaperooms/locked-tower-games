@@ -7,6 +7,8 @@ export class Game {
         this.roundsToWin = roundsToWin;
         this.wonRounds = 0;
 
+        this.failedBecauseOfTimer = false;
+
         this.lifes = lifes;
 
         this.onWon = onWon;
@@ -19,8 +21,7 @@ export class Game {
     }
 
     setupTimer(time) {
-        console.log("setting up new timer w", time);
-        if (this.timerIv !== null) clearInterval(this.timerIv);
+        if (!this.failedBecauseOfTimer && this.timerIv !== null) clearInterval(this.timerIv);
         this.timer = time;
 
         const container = document.querySelector("#timer");
@@ -33,7 +34,6 @@ export class Game {
         };
 
         this.timerIv = setInterval(() => {
-            console.log("tick", Math.random());
             if (container.classList.contains("paused") || container.classList.contains("interrupted") || container.classList.contains("disabled")) {
                 // do nothing when paused
             } else {
@@ -42,15 +42,16 @@ export class Game {
 
             renderTimer();
 
-            if (this.timer < 0) {
-                console.log("clearing since timer is < 0", this.timer);
+            if (!this.failedBecauseOfTimer && this.timer < 0) {
+                this.failedBecauseOfTimer = true;
                 this.currentRound?.fail();
                 clearInterval(this.timerIv);
             }
+
+            if (this.failedBecauseOfTimer) this.failedBecauseOfTimer = false;
         }, 1000);
 
         renderTimer();
-        console.log(this.timerIv, this.timer);
     }
 
     renderLifes() {
@@ -118,7 +119,6 @@ export class Game {
         };
 
         onFail = () => {
-            console.log("triggered onFail");
             this.lifes--;
             this.renderLifes();
             this.renderProgress();
