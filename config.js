@@ -18,17 +18,17 @@ export const configHateSpeech = {
     comments: {
         easy: [
             "/content/hate_speech/R1_Level1_Kommentar1.png",
-            "/content/hate_speech/comment_02.png",
-            "/content/hate_speech/comment_01.png",
-            "/content/hate_speech/comment_02.png",
+            "/content/hate_speech/R1_Level1_Kommentar2.png",
+            "/content/hate_speech/R1_Level1_Kommentar3.png",
+            "/content/hate_speech/R1_Level1_Kommentar4.png",
         ],
         hard: [
-            "/content/hate_speech/comment_01.png",
-            "/content/hate_speech/comment_02.png",
-            "/content/hate_speech/comment_01.png",
-            "/content/hate_speech/comment_02.png",
-            "/content/hate_speech/comment_01.png",
-            "/content/hate_speech/comment_02.png",
+            "/content/hate_speech/R1_Level2_Kommentar1.png",
+            "/content/hate_speech/R1_Level2_Kommentar2.png",
+            "/content/hate_speech/R1_Level2_Kommentar3.png",
+            "/content/hate_speech/R1_Level2_Kommentar4.png",
+            "/content/hate_speech/R1_Level2_Kommentar5.png",
+            "/content/hate_speech/R1_Level2_Kommentar6.png",
         ],
     },
     solutions: {
