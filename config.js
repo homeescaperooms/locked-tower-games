@@ -17,7 +17,7 @@ export const configHateSpeech = {
     gameOverText: "Das war leider falsch. Versuche es erneut!",
     comments: {
         easy: [
-            "/content/hate_speech/comment_01.png",
+            "/content/hate_speech/R1_Level1_Kommentar1.png",
             "/content/hate_speech/comment_02.png",
             "/content/hate_speech/comment_01.png",
             "/content/hate_speech/comment_02.png",
