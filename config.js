@@ -9,10 +9,10 @@ export const configGlobal = {
 };
 
 export const configHateSpeech = {
-    questionText: "In welcher zeitlichen Reihenfolge wurden die Kommentare gegen Jola gepostet?",
+    questionText: "Ordne die Hass-Kommentare gemäß ihrer zeitlichen Reihenfolge.",
     helpText: {
-        easy: "Drücke die vier zugehörigen Schalter zu den Profilen in der zeitlichen Reihenfolge des Posts. Jeweils zwei Kommentare wurden am gleichen Tag gepostet, dabei referenziert die eine Person jeweils die andere.",
-        hard: "Drücke die sechs zugehörigen Schalter zu den Profilen in der zeitlichen Reihenfolge des Posts. Jeweils zwei Kommentare wurden am gleichen Tag gepostet, dabei referenziert die eine Person jeweils die andere.",
+        easy: "Drücke die Schalter unter den vier gesuchten Profilen in der richtigen zeitlichen Abfolge: Vom ältesten zum neuesten Kommentar. Jeweils zwei Kommentare wurden am gleichen Tag gepostet, dabei bezieht sich die eine Person jeweils auf die andere.",
+        hard: "Drücke die Schalter unter den sechs gesuchten Profilen in der richtigen zeitlichen Abfolge: Vom ältesten zum neuesten Kommentar. Jeweils zwei Kommentare wurden am gleichen Tag gepostet, dabei bezieht sich die eine Person jeweils auf die andere.",
     },
     gameOverText: "Das war leider falsch. Versuche es erneut!",
     comments: {
@@ -38,10 +38,10 @@ export const configHateSpeech = {
 };
 
 export const configUnknownLanguage = {
-    questionText: "Wie lautet der geheime Code, um die Tür in Noahs Computerspiel zu öffnen?",
+    questionText: "Erkenne die Logik und drücke die vier gesuchten Zahlen in der richtigen Reihenfolge, um das verschlossene Portal zu öffnen.",
     helpText: {
-        easy: "Drücke die vier Schalter in der richtigen Reihenfolge. Die Pinne außerhalb der Kreise helfen bei der Zuordnung der Zahlen auf das jeweilige Symbol.",
-        hard: "Drücke die sechs Schalter in der richtigen Reihenfolge. Die Pinne außerhalb der Kreise helfen bei der Zuordnung der Zahlen auf das jeweilige Symbol.",
+        easy: "Drücke die vier gesuchten Zahlen in der richtigen Reihenfolge. Die Anzahl der Striche außerhalb der Kreise hilft dir, den Zahlenwert der einzelnen Symbole zu ermitteln. Das erste Symbol steht für die „1“.",
+        hard: "Drücke die sechs gesuchten Zahlen in der richtigen Reihenfolge. Die Anzahl der Striche außerhalb der Kreise hilft dir, den Zahlenwert der einzelnen Symbole zu ermitteln. Das erste Symbol steht für die „8“.",
     },
     gameOverText: "Das war leider falsch. Versuche es erneut!",
     solutions: {
@@ -53,25 +53,25 @@ export const configUnknownLanguage = {
 export const configEmotions = {
     questionText: "Welche drei Emotionen durchlebt Noah in den Clips?",
     helpText: {
-        easy: "Stelle die drei Regler auf die richtige Position (von links nach rechts), indem du die entsprechende Emotion im jeweiligen Video erkennst.",
-        hard: "Stelle die drei Regler auf die richtige Position (von links nach rechts), indem du die entsprechende Emotion im jeweiligen Video erkennst.",
+        easy: "Stelle die drei Regler jeweils auf die richtige Emotion ein, indem du die entsprechende Emotion im jeweiligen Video erkennst (von links nach rechts).",
+        hard: "Stelle die drei Regler jeweils auf die richtige Emotion ein, indem du die entsprechende Emotion im jeweiligen Video erkennst (von links nach rechts).",
     },
 };
 
 export const configQuizWG = {
-    questionText: "Wie beantwortet Noah die Fragen in seinem Schulprojekt korrekt?",
+    questionText: "Hilf Noah bei den Fragen seines Schulprojekts.",
     helpText: {
         easy: "Beachte den Countdown für die einzelnen Fragen und die Anzahl an möglichen Fehlversuchen (grünes Herz).",
         hard: "Beachte den Countdown für die einzelnen Fragen und die Anzahl an möglichen Fehlversuchen (grünes Herz).",
     },
     gameOverText: `Du hast leider verloren. Drücke einen beliebigen Knopf, um neu zu starten.`,
     lifes: {
-        easy: 5,
-        hard: 3,
+        easy: 3,
+        hard: 2,
     },
     roundAmount: {
-        easy: 4,
-        hard: 6,
+        easy: 5,
+        hard: 7,
     },
     questionPool: [
         // text
