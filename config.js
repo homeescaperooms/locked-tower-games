@@ -38,7 +38,7 @@ export const configHateSpeech = {
 };
 
 export const configUnknownLanguage = {
-    questionText: "Erkenne die Logik und drücke die vier gesuchten Zahlen in der richtigen Reihenfolge, um das verschlossene Portal zu öffnen.",
+    questionText: "Erkenne die Logik und drücke die gesuchten Zahlen in der richtigen Reihenfolge, um das verschlossene Portal zu öffnen.",
     helpText: {
         easy: "Drücke die vier gesuchten Zahlen in der richtigen Reihenfolge. Die Anzahl der Striche außerhalb der Kreise hilft dir, den Zahlenwert der einzelnen Symbole zu ermitteln. Das erste Symbol steht für die „1“.",
         hard: "Drücke die sechs gesuchten Zahlen in der richtigen Reihenfolge. Die Anzahl der Striche außerhalb der Kreise hilft dir, den Zahlenwert der einzelnen Symbole zu ermitteln. Das erste Symbol steht für die „8“.",
@@ -263,7 +263,7 @@ export const configQuizWG = {
         },
 
         {
-            question: "Wieviel Würfelzucker sind in einem klassischen Energy Drink?",
+            question: "Wieviel Gramm Zucker sind in einem klassischen Energy Drink?",
             answerOptions: [
                 "/content/quiz_wg/sugar/5g.png",
                 "/content/quiz_wg/sugar/10g.png",
