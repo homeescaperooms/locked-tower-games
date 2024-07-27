@@ -39,7 +39,11 @@ function onInput({ detail }) {
     // Disallow other key events when help is shown
     if (helpModal) return;
 
-    if (button === "buttonSolve") {
+    if (DIFFICULTY === "easy" && button === "buttonSolveEasy") {
+        solveGame();
+    }
+
+    if (DIFFICULTY === "hard" && button === "buttonSolveHard") {
         solveGame();
     }
 }
@@ -59,7 +63,9 @@ initAfterLoad(() => {
         } else if (event.key === "Escape") {
             spoofInputBackend(3, "buttonHelp");
         } else if (event.key === "1") {
-            spoofInputBackend(3, "buttonSolve");
+            spoofInputBackend(3, "buttonSolveEasy");
+        } else if (event.key === "2") {
+            spoofInputBackend(3, "buttonSolveHard");
         }
     });
 

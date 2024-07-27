@@ -117,7 +117,11 @@ const INPUTS = Object.freeze({
             },
             12: {
                 game: 3,
-                button: "buttonSolve",
+                button: "buttonSolveEasy",
+            },
+            13: {
+                game: 3,
+                button: "buttonSolveHard",
             },
         },
     },
