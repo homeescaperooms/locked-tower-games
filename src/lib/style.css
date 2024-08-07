@@ -384,6 +384,7 @@ main.quiz_wg .button-content .text-content {
     justify-content: center;
     align-items: center;
     width: 100%;
+    padding-left: 0.6rem;
 }
 
 main.quiz_wg .button-content img {
