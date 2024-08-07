@@ -2,7 +2,7 @@ import "../fonts.css";
 import "../lib/style.css";
 //import "../lib/teapot/style.css";
 
-import { configQuizWG } from "../../config.js";
+import { configGlobal, configQuizWG } from "../../config.js";
 import { sleep } from "../helper.js";
 import { colorOverwrite } from "../lib/color.js";
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
