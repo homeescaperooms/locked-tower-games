@@ -2,7 +2,7 @@ import "../fonts.css";
 import "../lib/style.css";
 //import "../lib/teapot/style.css";
 
-import { configGlobal, configQuizWG } from "../../config.js";
+import { configQuizWG } from "../../config.js";
 import { sleep } from "../helper.js";
 import { colorOverwrite } from "../lib/color.js";
 import { setupInputBackend, spoofInputBackend } from "../lib/control/control.js";
@@ -60,7 +60,7 @@ const onGameOver = () => {
     document.querySelector(".answer-container").innerHTML = ``;
     document.querySelector("#timer")?.classList.add("disabled");
 
-    resetTimer.stop();
+    game?.pauseTimer(false);
     anyButtonRestarts = true;
 };
 
