@@ -1,6 +1,6 @@
 export const configGlobal = {
     // how many seconds of inacitivty resets the game to the start
-    resetTimerSeconds: 600,
+    resetTimerSeconds: 300,
 
     // how many seconds to wait after a wrong answer before restarting the game
     // in game 3 you can't lose, so this is ignored
