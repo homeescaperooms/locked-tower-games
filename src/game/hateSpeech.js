@@ -155,7 +155,7 @@ initAfterLoad(async () => {
     for (let i = 0; i < assetNumber; i++) {
         const asset = commentAssets[i];
 
-        let scale = randomBetween(1.9, 2.1);
+        let scale = randomBetween(1.4, 1.6);
         let rot = randomBetween(-4, 4);
 
         // add real image (to end)
