@@ -38,10 +38,10 @@ export const configHateSpeech = {
 };
 
 export const configUnknownLanguage = {
-    questionText: "Erkenne die Logik und drücke die gesuchten Zahlen in der richtigen Reihenfolge, um das verschlossene Portal zu öffnen.",
+    questionText: "Drücke die gesuchten Zahlen in der richtigen Reihenfolge, um das Rätsel zu lösen.",
     helpText: {
-        easy: "Drücke die vier gesuchten Zahlen in der richtigen Reihenfolge. Die Anzahl der Striche außerhalb der Kreise hilft dir, den Zahlenwert der einzelnen Symbole zu ermitteln. Das erste Symbol steht für die „1“.",
-        hard: "Drücke die sechs gesuchten Zahlen in der richtigen Reihenfolge. Die Anzahl der Striche außerhalb der Kreise hilft dir, den Zahlenwert der einzelnen Symbole zu ermitteln. Das erste Symbol steht für die „8“.",
+        easy: "Die drei Schieberegler müssen gleichzeitig bewegt werden - Es hilft, beide Hände zu verwenden.",
+        hard: "Die drei Schieberegler müssen gleichzeitig bewegt werden - Es hilft, beide Hände zu verwenden.",
     },
     gameOverText: "Das war leider falsch. Versuche es erneut!",
     solutions: {
