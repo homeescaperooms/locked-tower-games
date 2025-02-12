@@ -100,8 +100,8 @@ main .progress .indicator {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     background: var(--color-primary);
     color: var(--color-text-inverted);
     border-radius: 100%;
@@ -128,7 +128,7 @@ main.game h1 {
     width: 100%;
     background: var(--color-aok-green);
     color: var(--color-text-inverted);
-    text-align: left;
+    text-align: center;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -148,7 +148,7 @@ main.game h1:before {
 
 main.game .feedback {
     text-align: center;
-    font-weight: 600;
+    font-weight: 900;
     transition: opacity 0.25s ease-in-out;
     opacity: 0;
     padding: 0.5rem;
