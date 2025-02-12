@@ -38,7 +38,7 @@ export const configHateSpeech = {
 };
 
 export const configUnknownLanguage = {
-    questionText: "Drücke die gesuchten Zahlen in der richtigen Reihenfolge,<br> um das Rätsel zu lösen.",
+    questionText: "Drücke die gesuchten Zahlen in der richtigen Reihenfolge, um das Rätsel zu lösen.",
     helpText: {
         easy: "Die drei Schieberegler müssen gleichzeitig bewegt werden - Es hilft, beide Hände zu verwenden.",
         hard: "Die drei Schieberegler müssen gleichzeitig bewegt werden - Es hilft, beide Hände zu verwenden.",
