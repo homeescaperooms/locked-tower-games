@@ -36,7 +36,7 @@ async function onInput({ detail }) {
             helpModal = null;
         } else {
             helpModal = showModal({
-                text: configHateSpeech.helpText[DIFFICULTY],
+                html: configHateSpeech.helpText[DIFFICULTY],
             });
         }
     }

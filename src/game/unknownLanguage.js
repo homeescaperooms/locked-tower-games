@@ -37,7 +37,7 @@ async function onInput({ detail }) {
             helpModal = null;
         } else {
             helpModal = showModal({
-                text: configUnknownLanguage.helpText[DIFFICULTY],
+                html: configUnknownLanguage.helpText[DIFFICULTY],
             });
         }
     }
@@ -134,7 +134,7 @@ initAfterLoad(() => {
 
     // game specific
     colorOverwrite(document.querySelector("main"), configUnknownLanguage.colorOverwrite);
-    document.querySelector("h1").textContent = configUnknownLanguage.questionText;
+    document.querySelector("h1").innerHTML = configUnknownLanguage.questionText;
 
     updateProgress(currentTryInputs, configUnknownLanguage.solutions[DIFFICULTY]);
 
