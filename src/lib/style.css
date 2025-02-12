@@ -62,8 +62,8 @@ h6 {
 
 main {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 120%;
+    height: 120%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -148,7 +148,7 @@ main.game h1:before {
 
 main.game .feedback {
     text-align: center;
-    font-weight: 900;
+    font-weight: 600;
     transition: opacity 0.25s ease-in-out;
     opacity: 0;
     padding: 0.5rem;
