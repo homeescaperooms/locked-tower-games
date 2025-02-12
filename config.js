@@ -11,8 +11,8 @@ export const configGlobal = {
 export const configHateSpeech = {
     questionText: "Ordne die Hass-Kommentare gemäß ihrer zeitlichen Reihenfolge.",
     helpText: {
-        easy: "Drücke die Schalter unter den vier gesuchten Profilen in der richtigen zeitlichen Abfolge:<br><br>Vom ältesten zum neuesten Kommentar. Jeweils zwei Kommentare wurden am gleichen Tag gepostet, dabei bezieht sich die eine Person jeweils auf die andere.",
-        hard: "Drücke die Schalter unter den sechs gesuchten Profilen in der richtigen zeitlichen Abfolge:<br><br>Vom ältesten zum neuesten Kommentar. Jeweils zwei Kommentare wurden am gleichen Tag gepostet, dabei bezieht sich die eine Person jeweils auf die andere.",
+        easy: "Drücke die Schalter unter den vier gesuchten Profilen in der richtigen zeitlichen Abfolge:<br><br>Vom ältesten zum neuesten Kommentar.<br>Jeweils zwei Kommentare wurden am gleichen Tag gepostet, dabei bezieht sich die eine Person jeweils auf die andere.",
+        hard: "Drücke die Schalter unter den sechs gesuchten Profilen in der richtigen zeitlichen Abfolge:<br><br>Vom ältesten zum neuesten Kommentar.<br>Jeweils zwei Kommentare wurden am gleichen Tag gepostet, dabei bezieht sich die eine Person jeweils auf die andere.",
     },
     gameOverText: "Das war leider falsch. Versuche es erneut!",
     comments: {
