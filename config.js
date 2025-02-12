@@ -40,8 +40,8 @@ export const configHateSpeech = {
 export const configUnknownLanguage = {
     questionText: "Drücke die gesuchten Zahlen in der richtigen Reihenfolge,<br>um das Rätsel zu lösen.",
     helpText: {
-        easy: "Drücke die vier gesuchten Zahlen in der richtigen Reihenfolge. Die Anzahl der Striche außerhalb der Symbole hilft dir, den Zahlenwert der einzelnen Symbole zu ermitteln. Das erste Symbol steht für die „1“",
-        hard: "Drücke die sechs gesuchten Zahlen in der richtigen Reihenfolge. Die Anzahl der Striche außerhalb der Symbole hilft dir, den Zahlenwert der einzelnen Symbole zu ermitteln. Das erste Symbol steht für die „8“",
+        easy: "Drücke die vier gesuchten Zahlen in der richtigen Reihenfolge. <br> Die Anzahl der Striche außerhalb der Symbole hilft dir, den Zahlenwert der einzelnen Symbole zu ermitteln. Das erste Symbol steht für die „1“",
+        hard: "Drücke die sechs gesuchten Zahlen in der richtigen Reihenfolge. <br> Die Anzahl der Striche außerhalb der Symbole hilft dir, den Zahlenwert der einzelnen Symbole zu ermitteln. Das erste Symbol steht für die „8“",
     },
     gameOverText: "Das war leider falsch. Versuche es erneut!",
     solutions: {
@@ -53,8 +53,8 @@ export const configUnknownLanguage = {
 export const configEmotions = {
     questionText: "Welche drei Emotionen durchlebt Noah in den Clips?",
     helpText: {
-        easy: "Die drei Schieberegler müssen gleichzeitig bewegt werden.<br>Es hilft, beide Hände zu verwenden.",
-        hard: "Die drei Schieberegler müssen gleichzeitig bewegt werden.<br>Es hilft, beide Hände zu verwenden.",
+        easy: "Die drei Schieberegler müssen gleichzeitig bewegt werden. - <br> Es hilft, beide Hände zu verwenden.",
+        hard: "Die drei Schieberegler müssen gleichzeitig bewegt werden. - Es hilft, beide Hände zu verwenden.",
     },
 };
 
