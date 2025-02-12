@@ -128,7 +128,7 @@ main.game h1 {
     width: 100%;
     background: var(--color-aok-green);
     color: var(--color-text-inverted);
-    text-align: center;
+    text-align: left;
     display: flex;
     align-items: center;
     gap: 0.5rem;
